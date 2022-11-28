@@ -8,9 +8,13 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Bookingreservation.hasMany(
-                
-            );
+            Bookingreservation.hasOne(models.User, {
+                foreignKey: "userid"
+            });
+
+            Bookingreservation.hasOne(models.Customer, {
+                foreignKey: "customerid"
+            });
         }
     }
     Bookingreservation.init({
@@ -20,16 +24,10 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        userid: {
-            type: DataTypes.STRING,
-            foreign
-        }
-        customername: DataTypes.STRING,
-        phonenumber: DataTypes.INTEGER,
-        address: DataTypes.STRING,
-        email: DataTypes.STRING,
-        nationalid: DataTypes.STRING,
-        companyname: DataTypes.STRING
+        userid: DataTypes.INTEGER,
+        customerid: DataTypes.INTEGER,
+        numberoftalbes: DataTypes.INTEGER,
+        numberofguests: DataTypes.INTEGER
     }, {
         sequelize,
         modelName: "Bookingreservation",
