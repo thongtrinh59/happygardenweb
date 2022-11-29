@@ -8,12 +8,24 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Bookingreservation.hasOne(models.User, {
+            Bookingreservation.belongsTo(models.User, {
                 foreignKey: "userid"
             });
 
-            Bookingreservation.hasOne(models.Customer, {
+            Bookingreservation.belongsTo(models.Customer, {
                 foreignKey: "customerid"
+            });
+
+            Bookingreservation.belongsTo(models.Lobby, {
+                foreignKey: "lobbyid"
+            });
+
+            Bookingreservation.belongsTo(models.Status, {
+                foreignKey: "statusid"
+            });
+
+            Bookingreservation.belongsTo(models.Event, {
+                foreignKey: "eventid"
             });
         }
     }
