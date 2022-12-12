@@ -48,7 +48,8 @@ module.exports = (sequelize, DataTypes) => {
     deposit: DataTypes.INTEGER,
     userid: DataTypes.INTEGER,
     eventid: DataTypes.INTEGER,
-    lobbyid: DataTypes.INTEGER
+    lobbyid: DataTypes.INTEGER,
+    percentage: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Contract',
