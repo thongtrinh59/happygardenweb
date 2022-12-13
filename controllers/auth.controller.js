@@ -89,12 +89,9 @@ exports.signin = (req, res) => {
             //     });
             // });
             res.status(200).send({
-                id: user.id,
+                id: user._id,
                 username: user.username,
-                name: user.name,
                 email: user.email,
-                branchId: user.branchId,
-                roles: authorities,
                 accessToken: token,
             });
         })

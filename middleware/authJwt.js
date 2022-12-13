@@ -23,90 +23,90 @@ verifyToken = (req, res, next) => {
     });
 };
 
-isAdmin = (req, res, next) => {
-    User.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === "admin") {
-                    next();
-                    return;
-                }
-            }
+// isAdmin = (req, res, next) => {
+//     User.findByPk(req.userId).then((user) => {
+//         user.getRoles().then((roles) => {
+//             for (let i = 0; i < roles.length; i++) {
+//                 if (roles[i].name === "admin") {
+//                     next();
+//                     return;
+//                 }
+//             }
 
-            res.status(403).send({
-                message: "Require Admin Role!",
-            });
-            return;
-        });
-    });
-};
+//             res.status(403).send({
+//                 message: "Require Admin Role!",
+//             });
+//             return;
+//         });
+//     });
+// };
 
-isModerator = (req, res, next) => {
-    User.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === "moderator") {
-                    next();
-                    return;
-                }
-            }
+// isModerator = (req, res, next) => {
+//     User.findByPk(req.userId).then((user) => {
+//         user.getRoles().then((roles) => {
+//             for (let i = 0; i < roles.length; i++) {
+//                 if (roles[i].name === "moderator") {
+//                     next();
+//                     return;
+//                 }
+//             }
 
-            res.status(403).send({
-                message: "Require Moderator Role!",
-            });
-        });
-    });
-};
+//             res.status(403).send({
+//                 message: "Require Moderator Role!",
+//             });
+//         });
+//     });
+// };
 
-isEmployee = (req, res, next) => {
-    User.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === "employee") {
-                    next();
-                    return;
-                }
-            }
+// isEmployee = (req, res, next) => {
+//     User.findByPk(req.userId).then((user) => {
+//         user.getRoles().then((roles) => {
+//             for (let i = 0; i < roles.length; i++) {
+//                 if (roles[i].name === "employee") {
+//                     next();
+//                     return;
+//                 }
+//             }
 
-            res.status(403).send({
-                message: "Require Employee Role!",
-            });
-        });
-    });
-};
+//             res.status(403).send({
+//                 message: "Require Employee Role!",
+//             });
+//         });
+//     });
+// };
 
-isModeratorOrAdminOrEmployee = (req, res, next) => {
-    User.findByPk(req.userId).then((user) => {
-        user.getRoles().then((roles) => {
-            for (let i = 0; i < roles.length; i++) {
-                if (roles[i].name === "moderator") {
-                    next();
-                    return;
-                }
+// isModeratorOrAdminOrEmployee = (req, res, next) => {
+//     User.findByPk(req.userId).then((user) => {
+//         user.getRoles().then((roles) => {
+//             for (let i = 0; i < roles.length; i++) {
+//                 if (roles[i].name === "moderator") {
+//                     next();
+//                     return;
+//                 }
 
-                if (roles[i].name === "admin") {
-                    next();
-                    return;
-                }
+//                 if (roles[i].name === "admin") {
+//                     next();
+//                     return;
+//                 }
 
-                if (roles[i].name === "employee") {
-                    next();
-                    return;
-                }
-            }
+//                 if (roles[i].name === "employee") {
+//                     next();
+//                     return;
+//                 }
+//             }
 
-            res.status(403).send({
-                message: "Require Moderator or Admin Or Employee Role!",
-            });
-        });
-    });
-};
+//             res.status(403).send({
+//                 message: "Require Moderator or Admin Or Employee Role!",
+//             });
+//         });
+//     });
+// };
 
 const authJwt = {
     verifyToken: verifyToken,
-    isAdmin: isAdmin,
-    isModerator: isModerator,
-    isEmployee: isEmployee,
-    isModeratorOrAdminOrEmployee: isModeratorOrAdminOrEmployee,
+    // isAdmin: isAdmin,
+    // isModerator: isModerator,
+    // isEmployee: isEmployee,
+    // isModeratorOrAdminOrEmployee: isModeratorOrAdminOrEmployee,
 };
 module.exports = authJwt;
