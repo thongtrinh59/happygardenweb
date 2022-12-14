@@ -27,8 +27,14 @@ app.get("/", (req, res) => {
     res.json({ message: "Hello there!" });
 });
 
+
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    const allowedOrigins = ["https://hg-web.vercel.app/"]
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    // res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, token"

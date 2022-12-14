@@ -45,5 +45,5 @@ module.exports = function (app) {
 
   router.get("/", controller.findAll);
 
-  app.use("/api/users", router);
+  app.use("/api/v1/users", router);
 };
