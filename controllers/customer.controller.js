@@ -41,7 +41,7 @@ exports.getCustomerByID = (req, res) => {
 }
 
 exports.getAllCustomers = (req, res) => {
-    User.findAll({
+    Customer.findAll({
         order: [
             ["updatedAt", "DESC"]
         ],
