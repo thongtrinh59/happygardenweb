@@ -61,7 +61,8 @@ exports.getAllCustomers = (req, res) => {
 };
 
 exports.updateCustomer = (req, res) => {
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
+    console.log("this is customer param", id);
     Customer.update({
         customername: req.body.customername,
         phonenumber: req.body.phonenumber,
@@ -70,7 +71,7 @@ exports.updateCustomer = (req, res) => {
         nationalid: req.body.nationalid,
         companyname: req.body.companyname,
     }, {
-        where: { id: id },
+        where: { customerid: id },
     })
     .then((num) => {
         if (num == 1) {
@@ -98,5 +99,33 @@ exports.updateCustomer = (req, res) => {
 };
 
 exports.deleteCustomer = (req, res) => {
-    
+    const id = parseInt(req.params.id, 10);
+    Customer.destroy({
+        where: {
+            customerid: id
+        }
+    })
+    .then((num) => {
+        if (num == 1) {
+            res.send({
+                message: {
+                    heading: "Success !!!",
+                    message: "Delete customer successfully",
+                },
+            });
+        } else {
+            res.status(400).send({
+                message: {
+                    heading: "Oh snap! You got an error!",
+                    message: `Cannot delete customer with id=${id}. Maybe customer was not found or req.body is empty!`,
+                },
+            });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error deleting customer with id=" + id,
+        });
+        console.log(err);
+    });
 }

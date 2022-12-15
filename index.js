@@ -29,12 +29,12 @@ app.get("/", (req, res) => {
 
 
 app.use(function(req, res, next) {
-    const allowedOrigins = ["https://hg-web.vercel.app/"]
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    // res.header("Access-Control-Allow-Origin", "*");
+    // const allowedOrigins = ["https://hg-web.vercel.app/"]
+    // const origin = req.headers.origin;
+    // if (allowedOrigins.includes(origin)) {
+    //     res.setHeader('Access-Control-Allow-Origin', origin);
+    // }
+    res.header("Access-Control-Allow-Origin", "*");
     res.header(
         "Access-Control-Allow-Headers",
         "Origin, X-Requested-With, Content-Type, Accept, token"
@@ -46,6 +46,7 @@ app.use(function(req, res, next) {
 // routes
 require("./routes/auth.routes")(app);
 require("./routes/user.routes")(app);
+require("./routes/customer.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
