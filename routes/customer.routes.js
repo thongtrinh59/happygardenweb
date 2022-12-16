@@ -1,7 +1,24 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/customer.controller");
-const { body } = require('express-validator/check')
+// const { check } = require('express-validator/check')
+const { body, validationResult } = require('express-validator');
 
+
+exports.validate = (method) => {
+    switch (method) {
+        case 'createCustomer': {
+            return [
+                check('customername', `customername doesn't exists`).exists(),
+                check('email', 'Invalid email').isEmail(),
+                // check('phone').exists(),
+                // check('address').optional(),
+                // check('companyname').optional(),
+                // body('phone').optional().isInt(),
+                // body('status').optional().isIn(['enabled', 'disabled'])
+            ]
+        }
+    }
+}
 
 module.exports = function (app) {
 	var router = require("express").Router();
@@ -37,7 +54,12 @@ module.exports = function (app) {
 
 	
 
-	router.post("/", controller.validate('createCustomer'), controller.createCustomer);
+	router.post(
+		"/", 
+		// body('email').isEmail(),
+		controller.validate('createCustomer'),
+		controller.createCustomer
+	);
 
 	router.put("/customer/:id", controller.updateCustomer);
 
