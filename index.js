@@ -1,11 +1,13 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const expressValidator = require('express-validator')
 const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
+app.use(expressValidator())
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());

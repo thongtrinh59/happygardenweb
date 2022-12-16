@@ -3,6 +3,22 @@ var bcrypt = require("bcryptjs");
 const Op = db.Sequelize.Op;
 const Customer = db.Customer;
 
+exports.validate = (method) => {
+    switch (method) {
+        case 'createCustomer': {
+            return [
+                body('customername', `customername doesn't exists`).exists(),
+                body('email', 'Invalid email').optional().isEmail(),
+                body('phone').exists(),
+                body('address').optional(),
+                body('companyname').optional(),
+                // body('phone').optional().isInt(),
+                // body('status').optional().isIn(['enabled', 'disabled'])
+            ]
+        }
+    }
+}
+
 exports.createCustomer = (req, res) => {
     Customer.create({
         customername: req.body.customername,
@@ -12,12 +28,12 @@ exports.createCustomer = (req, res) => {
         nationalid: req.body.nationalid,
         companyname: req.body.companyname,
     })
-    .then(() => {
-        res.send({ message: "Customer was created successfully!" });
-    })
-    .catch((err) => {
-        res.status(500).send({ message: err.message });
-    });
+        .then(() => {
+            res.send({ message: "Customer was created successfully!" });
+        })
+        .catch((err) => {
+            res.status(500).send({ message: err.message });
+        });
 }
 
 exports.getCustomerByID = (req, res) => {
@@ -29,15 +45,15 @@ exports.getCustomerByID = (req, res) => {
 
         ],
     })
-    .then((data) => {
-        res.send(data);
-    })
-    .catch((err) => {
-        res.status(500).send({
-            message: "Error retrieving User with id=" + id,
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "Error retrieving User with id=" + id,
+            });
+            console.log(err);
         });
-        console.log(err);
-    });
 }
 
 exports.getAllCustomers = (req, res) => {
@@ -49,15 +65,15 @@ exports.getAllCustomers = (req, res) => {
 
         ],
     })
-    .then((data) => {
-        res.send(data);
-    })
-    .catch((err) => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving demand_status.",
+        .then((data) => {
+            res.send(data);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving demand_status.",
+            });
+            console.log(err);
         });
-        console.log(err);
-    });
 };
 
 exports.updateCustomer = (req, res) => {
@@ -73,29 +89,29 @@ exports.updateCustomer = (req, res) => {
     }, {
         where: { customerid: id },
     })
-    .then((num) => {
-        if (num == 1) {
-            res.send({
-                message: {
-                    heading: "Success !!!",
-                    message: "Update customer successfully",
-                },
+        .then((num) => {
+            if (num == 1) {
+                res.send({
+                    message: {
+                        heading: "Success !!!",
+                        message: "Update customer successfully",
+                    },
+                });
+            } else {
+                res.status(400).send({
+                    message: {
+                        heading: "Oh snap! You got an error!",
+                        message: `Cannot update customer with id=${id}. Maybe customer was not found or req.body is empty!`,
+                    },
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "Error updating customer with id=" + id,
             });
-        } else {
-            res.status(400).send({
-                message: {
-                    heading: "Oh snap! You got an error!",
-                    message: `Cannot update customer with id=${id}. Maybe customer was not found or req.body is empty!`,
-                },
-            });
-        }
-    })
-    .catch((err) => {
-        res.status(500).send({
-            message: "Error updating customer with id=" + id,
+            console.log(err);
         });
-        console.log(err);
-    });
 };
 
 exports.deleteCustomer = (req, res) => {
@@ -105,27 +121,28 @@ exports.deleteCustomer = (req, res) => {
             customerid: id
         }
     })
-    .then((num) => {
-        if (num == 1) {
-            res.send({
-                message: {
-                    heading: "Success !!!",
-                    message: "Delete customer successfully",
-                },
+        .then((num) => {
+            if (num == 1) {
+                res.send({
+                    message: {
+                        heading: "Success !!!",
+                        message: "Delete customer successfully",
+                    },
+                });
+            } else {
+                res.status(400).send({
+                    message: {
+                        heading: "Oh snap! You got an error!",
+                        message: `Cannot delete customer with id=${id}. Maybe customer was not found or req.body is empty!`,
+                    },
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: "Error deleting customer with id=" + id,
             });
-        } else {
-            res.status(400).send({
-                message: {
-                    heading: "Oh snap! You got an error!",
-                    message: `Cannot delete customer with id=${id}. Maybe customer was not found or req.body is empty!`,
-                },
-            });
-        }
-    })
-    .catch((err) => {
-        res.status(500).send({
-            message: "Error deleting customer with id=" + id,
+            console.log(err);
         });
-        console.log(err);
-    });
 }
+

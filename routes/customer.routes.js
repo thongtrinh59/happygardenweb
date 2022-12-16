@@ -1,5 +1,7 @@
 const { authJwt } = require("../middleware");
 const controller = require("../controllers/customer.controller");
+const { body } = require('express-validator/check')
+
 
 module.exports = function (app) {
 	var router = require("express").Router();
@@ -32,18 +34,14 @@ module.exports = function (app) {
 	//     [authJwt.verifyToken],
 	//     controller.employeeBoard
 	//   );
-	router.post("/", controller.createCustomer);
 
+	
 
-	// router.post("/", controller.create);
-
-	// router.put("/user", controller.hide);
+	router.post("/", controller.validate('createCustomer'), controller.createCustomer);
 
 	router.put("/customer/:id", controller.updateCustomer);
 
 	router.get("/customer/:id", controller.getCustomerByID);
-
-	// router.get("/filters", controller.findWithFilters);
 
 	router.get("/", controller.getAllCustomers);
 
