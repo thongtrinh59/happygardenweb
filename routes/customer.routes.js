@@ -61,7 +61,11 @@ module.exports = function (app) {
 		controller.createCustomer
 	);
 
-	router.put("/customer/:id", controller.updateCustomer);
+	router.put(
+		"/customer/:id", 
+		controller.validate('updateCustomer'),
+		controller.updateCustomer
+	);
 
 	router.get("/customer/:id", controller.getCustomerByID);
 
