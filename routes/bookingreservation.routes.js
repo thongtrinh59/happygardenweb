@@ -72,7 +72,7 @@ module.exports = function (app) {
 	router.get(
         "/bookingreservations/:id", 
         [authJwt.verifyToken], 
-        controller.getContractByID
+        controller.getBookingByID
     );
 
 	router.get(
