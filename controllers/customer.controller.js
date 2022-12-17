@@ -6,16 +6,28 @@ const Customer = db.Customer;
 const { body, validationResult } = require('express-validator');
 
 
-
 exports.validate = (method) => {
     switch (method) {
         case 'createCustomer': {
             return [
                 body('customername', `customername doesn't exists`).exists(),
                 body('email', 'Invalid email').optional().isEmail(),
-                body('phone').exists(),
+                body('phonenumber').exists(),
                 body('address').optional(),
                 body('companyname').optional(),
+                body('nationalid').exists()
+                // body('phone').optional().isInt(),
+                // body('status').optional().isIn(['enabled', 'disabled'])
+            ]
+        }
+        case 'updateCustomer': {
+            return [
+                body('customername', `customername doesn't exists`).optional(),
+                body('email', 'Invalid email').optional().isEmail(),
+                body('phonenumber').optional(),
+                body('address').optional(),
+                body('companyname').optional(),
+                body('nationalid').optional()
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -26,22 +38,27 @@ exports.validate = (method) => {
 exports.createCustomer = (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
-    Customer.create({
-        customername: req.body.customername,
-        phonenumber: req.body.phonenumber,
-        address: req.body.address,
+    Customer.findOrCreate({
+        where: {
+            customername: req.body.customername,
+            phonenumber: req.body.phonenumber,
+            
+            
+            nationalid: req.body.nationalid,
+            
+        },
         email: req.body.email,
-        nationalid: req.body.nationalid,
         companyname: req.body.companyname,
+        address: req.body.address,
     })
-        .then(() => {
-            res.send({ message: "Customer was created successfully!" });
-        })
-        .catch((err) => {
-            res.status(500).send({ message: err.message });
-        });
+    .then(() => {
+        res.send({ message: "Customer was created successfully!" });
+    })
+    .catch((err) => {
+        res.status(500).send({ message: err.message });
+    });
 }
 
 exports.getCustomerByID = (req, res) => {
@@ -85,6 +102,10 @@ exports.getAllCustomers = (req, res) => {
 };
 
 exports.updateCustomer = (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     const id = parseInt(req.params.id, 10);
     console.log("this is customer param", id);
     Customer.update({
@@ -97,29 +118,29 @@ exports.updateCustomer = (req, res) => {
     }, {
         where: { customerid: id },
     })
-        .then((num) => {
-            if (num == 1) {
-                res.send({
-                    message: {
-                        heading: "Success !!!",
-                        message: "Update customer successfully",
-                    },
-                });
-            } else {
-                res.status(400).send({
-                    message: {
-                        heading: "Oh snap! You got an error!",
-                        message: `Cannot update customer with id=${id}. Maybe customer was not found or req.body is empty!`,
-                    },
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: "Error updating customer with id=" + id,
+    .then((num) => {
+        if (num == 1) {
+            res.send({
+                message: {
+                    heading: "Success !!!",
+                    message: "Update customer successfully",
+                },
             });
-            console.log(err);
+        } else {
+            res.status(400).send({
+                message: {
+                    heading: "Oh snap! You got an error!",
+                    message: `Cannot update customer with id=${id}. Maybe customer was not found or req.body is empty!`,
+                },
+            });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error updating customer with id=" + id,
         });
+        console.log(err);
+    });
 };
 
 exports.deleteCustomer = (req, res) => {
@@ -129,28 +150,28 @@ exports.deleteCustomer = (req, res) => {
             customerid: id
         }
     })
-        .then((num) => {
-            if (num == 1) {
-                res.send({
-                    message: {
-                        heading: "Success !!!",
-                        message: "Delete customer successfully",
-                    },
-                });
-            } else {
-                res.status(400).send({
-                    message: {
-                        heading: "Oh snap! You got an error!",
-                        message: `Cannot delete customer with id=${id}. Maybe customer was not found or req.body is empty!`,
-                    },
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: "Error deleting customer with id=" + id,
+    .then((num) => {
+        if (num == 1) {
+            res.send({
+                message: {
+                    heading: "Success !!!",
+                    message: "Delete customer successfully",
+                },
             });
-            console.log(err);
+        } else {
+            res.status(400).send({
+                message: {
+                    heading: "Oh snap! You got an error!",
+                    message: `Cannot delete customer with id=${id}. Maybe customer was not found or req.body is empty!`,
+                },
+            });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error deleting customer with id=" + id,
         });
+        console.log(err);
+    });
 }
 

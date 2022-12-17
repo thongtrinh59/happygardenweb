@@ -50,6 +50,7 @@ module.exports = (sequelize, DataTypes) => {
     eventid: DataTypes.INTEGER,
     lobbyid: DataTypes.INTEGER,
     percentage: DataTypes.INTEGER,
+    description: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Contract',

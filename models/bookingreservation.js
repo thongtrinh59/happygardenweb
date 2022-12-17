@@ -38,8 +38,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         userid: DataTypes.INTEGER,
         customerid: DataTypes.INTEGER,
+        lobbyid: DataTypes.INTEGER,
+        statusid: DataTypes.INTEGER,
+        eventid: DataTypes.INTEGER,
         numberoftalbes: DataTypes.INTEGER,
-        numberofguests: DataTypes.INTEGER
+        numberofguests: DataTypes.INTEGER,
+        description: DataTypes.STRING,
     }, {
         sequelize,
         modelName: "Bookingreservation",
