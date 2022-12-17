@@ -185,7 +185,7 @@ exports.findWithFilters = (req, res) => {
 
 
 exports.update = (req, res) => {
-
+    
 }
 
 exports.hide = (req, res) => {

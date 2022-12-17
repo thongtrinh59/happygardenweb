@@ -44,6 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         numberoftalbes: DataTypes.INTEGER,
         numberofguests: DataTypes.INTEGER,
         description: DataTypes.STRING,
+        datetime: DataTypes.DATE,
     }, {
         sequelize,
         modelName: "Bookingreservation",
