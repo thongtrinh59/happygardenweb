@@ -41,17 +41,22 @@ exports.createCustomer = (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     Customer.findOrCreate({
-        where: {
-            customername: req.body.customername,
-            phonenumber: req.body.phonenumber,
+        // where: {
+        //     customername: req.body.customername,
+        //     phonenumber: req.body.phonenumber,
             
             
-            nationalid: req.body.nationalid,
+        //     nationalid: req.body.nationalid,
             
-        },
+        // },
+        customername: req.body.customername,
+        phonenumber: req.body.phonenumber,
+            
+            
+        nationalid: req.body.nationalid,
         email: req.body.email,
         companyname: req.body.companyname,
-        address: req.body.address,
+        address: req.body.address
     })
     .then(() => {
         res.send({ message: "Customer was created successfully!" });

@@ -41,6 +41,16 @@ exports.createContract = (req, res) => {
     //     return res.status(400).json({ errors: errors.array() });
     // }
 
+    const username = req.query.username;
+    console.log("#################################");
+    console.log(username);
+    // const name = req.query.name;
+    const email = req.query.email;
+    const order = req.query.order;
+    const datetype = req.query.datetype;
+    const from_date = req.query.from_date;
+    const to_date = req.query.to_date;
+    const limit = parseInt(req.query.limit) || null;
 
     
 }
