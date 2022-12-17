@@ -40,7 +40,7 @@ exports.createCustomer = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-    Customer.findOrCreate({
+    Customer.create({
         // where: {
         //     customername: req.body.customername,
         //     phonenumber: req.body.phonenumber,
