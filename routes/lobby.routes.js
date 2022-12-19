@@ -1,5 +1,5 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/customer.controller");
+const controller = require("../controllers/lobby.controller");
 // const { check } = require('express-validator/check')
 const { body, validationResult } = require('express-validator');
 
@@ -54,24 +54,24 @@ module.exports = function (app) {
 
 	
 
-	router.post(
-		"/", 
-		// body('email').isEmail(),
-		controller.validate('createCustomer'),
-		controller.createCustomer
-	);
+	// router.post(
+	// 	"/", 
+	// 	// body('email').isEmail(),
+	// 	// controller.validate('createCustomer'),
+	// 	controller.createCustomer
+	// );
 
-	router.put(
-		"/customer/:id", 
-		controller.validate('updateCustomer'),
-		controller.updateCustomer
-	);
+	// router.put(
+	// 	"/customer/:id", 
+	// 	controller.validate('updateCustomer'),
+	// 	controller.updateCustomer
+	// );
 
-	router.get("/customer/:id", controller.getCustomerByID);
+	// router.get("/customer/:id", controller.getCustomerByID);
 
-	router.get("/", controller.getAllCustomers);
+	router.get("/", controller.getAllLobbies);
 
-	router.delete("/customer/:id", controller.deleteCustomer)
+	// router.delete("/customer/:id", controller.deleteCustomer)
 
-	app.use("/api/v1/customers", router);
+	app.use("/api/v1/lobbies", router);
 };

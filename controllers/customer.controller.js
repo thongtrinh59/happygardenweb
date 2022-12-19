@@ -15,7 +15,8 @@ exports.validate = (method) => {
                 body('phonenumber').exists(),
                 body('address').optional(),
                 body('companyname').optional(),
-                body('nationalid').exists()
+                body('nationalid').exists(),
+                body('taxnumber').optional()
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -27,7 +28,8 @@ exports.validate = (method) => {
                 body('phonenumber').optional(),
                 body('address').optional(),
                 body('companyname').optional(),
-                body('nationalid').optional()
+                body('nationalid').optional(),
+                body('taxnumber').optional()
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -56,7 +58,8 @@ exports.createCustomer = (req, res) => {
         nationalid: req.body.nationalid,
         email: req.body.email,
         companyname: req.body.companyname,
-        address: req.body.address
+        address: req.body.address,
+        taxnumber: req.body.taxnumber
     })
     .then(() => {
         res.send({ message: "Customer was created successfully!" });
@@ -70,20 +73,20 @@ exports.getCustomerByID = (req, res) => {
     const id = req.params.id;
     console.log("this is id");
     console.log(id);
-    User.findByPk(id, {
+    Customer.findByPk(id, {
         include: [
 
         ],
     })
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: "Error retrieving User with id=" + id,
-            });
-            console.log(err);
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error retrieving Customer with id=" + id,
         });
+        console.log(err);
+    });
 }
 
 exports.getAllCustomers = (req, res) => {
@@ -120,6 +123,7 @@ exports.updateCustomer = (req, res) => {
         email: req.body.email,
         nationalid: req.body.nationalid,
         companyname: req.body.companyname,
+        taxnumber: req.body.taxnumber
     }, {
         where: { customerid: id },
     })

@@ -1,8 +1,8 @@
+
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/contract.controller");
+const controller = require("../controllers/bookingreservation.controller");
 // const { check } = require('express-validator/check')
 const { body, validationResult } = require('express-validator');
-
 
 // exports.validate = (method) => {
 //     switch (method) {
@@ -56,29 +56,30 @@ module.exports = function (app) {
 
 	router.post(
 		"/", 
-        [authJwt.verifyToken],
+        // [authJwt.verifyToken],
 		// body('email').isEmail(),
 		// controller.validate('createCustomer'),
-		controller.createBookingreservation
+		// controller.createBookingreservation
+        controller.createBookingreservation
 	);
 
 	router.put(
 		"/bookingreservation/:id", 
 		// controller.validate('updateCustomer'),
-        [authJwt.verifyToken],
+        // [authJwt.verifyToken],
 		controller.updateBookingreservation
 	);
 
 	router.get(
         "/bookingreservations/:id", 
-        [authJwt.verifyToken], 
+        // [authJwt.verifyToken], 
         controller.getBookingByID
     );
 
 	router.get(
         "/", 
-        [authJwt.verifyToken], 
-        controller.getAllContract
+        // [authJwt.verifyToken], 
+        controller.getAllBooking
     );
 
 	// router.delete(
@@ -88,8 +89,8 @@ module.exports = function (app) {
     // );
 
     router.get(
-        "/", 
-        [authJwt.verifyToken], 
+        "/bookingreservation", 
+        // [authJwt.verifyToken], 
         controller.getBookingByDate
     );
 

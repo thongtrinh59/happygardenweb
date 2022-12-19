@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    lobbyname: DataTypes.STRING
+    lobbyname: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Lobby',

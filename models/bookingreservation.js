@@ -44,11 +44,21 @@ module.exports = (sequelize, DataTypes) => {
         numberoftalbes: DataTypes.INTEGER,
         numberofguests: DataTypes.INTEGER,
         description: DataTypes.STRING,
-        datetime: DataTypes.DATE,
+        // datetime: DataTypes.DATE,
+        fromdate: DataTypes.DATE,
+        todate: DataTypes.DATE,
+        menu: DataTypes.STRING,
+        decoration: DataTypes.STRING,
+        sound: DataTypes.STRING,
+        light: DataTypes.STRING,
+        mc: DataTypes.STRING,
+        contentdisplay: DataTypes.STRING,
+        singer: DataTypes.STRING,
+        entertainment: DataTypes.STRING
     }, {
         sequelize,
         modelName: "Bookingreservation",
-        tableName: 'bookingreservations',
+        tableName: 'bookingreservation',
     });
     return Bookingreservation;
 };
