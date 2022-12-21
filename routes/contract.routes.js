@@ -56,7 +56,7 @@ module.exports = function (app) {
 
 	router.post(
 		"/", 
-        [authJwt.verifyToken],
+        // [authJwt.verifyToken],
 		// body('email').isEmail(),
 		// controller.validate('createCustomer'),
 		controller.createContract

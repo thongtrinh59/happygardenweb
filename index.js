@@ -55,7 +55,8 @@ require("./routes/customer.routes")(app);
 require("./routes/contract.routes")(app);
 require("./routes/bookingreservation.routes")(app);
 require("./routes/lobby.routes")(app);
-
+require("./routes/status.routes")(app);
+require("./routes/event.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

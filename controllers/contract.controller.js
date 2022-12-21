@@ -1,9 +1,12 @@
 const db = require("../models");
 var bcrypt = require("bcryptjs");
 const Op = db.Sequelize.Op;
-const Customer = db.Customer;
+const Contract = db.Contract;
+
 // const { body } = require('express-validator/check')
 const { body, validationResult } = require('express-validator');
+const bookingreservation = require("../models/bookingreservation");
+const Bookingreservation = db.Bookingreservation;
 
 
 // exports.validate = (method) => {
@@ -41,15 +44,55 @@ exports.createContract = (req, res) => {
     //     return res.status(400).json({ errors: errors.array() });
     // }
 
-    const userid = req.query.userid;
-    const customerid = req.query.customerid
-    const email = req.query.email;
-    const order = req.query.order;
-    const datetype = req.query.datetype;
-    const from_date = req.query.from_date;
-    const to_date = req.query.to_date;
-    const limit = parseInt(req.query.limit) || null;
+    // const userid = req.query.userid;
+    // const customerid = req.query.customerid
+    // const email = req.query.email;
+    // const order = req.query.order;
+    // const datetype = req.query.datetype;
+    // const from_date = req.query.from_date;
+    // const to_date = req.query.to_date;
+    // const limit = parseInt(req.query.limit) || null;
 
+
+    const bookingid = req.body.bookingid;
+    console.log(bookingid);
+    const number = req.body.number;
+    const contractvalue = req.body.contractvalue;
+    const deposit = req.body.deposit;
+    const percentage = req.body.percentage;
+
+
+    Bookingreservation.findByPk(bookingid, {
+        include: [
+
+        ],
+    })
+    .then((data) => {
+        // console.log(data.userid);
+        // res.send(data);
+        const userid = data.userid;
+        const customerid = data.customerid;
+        const lobbyid = data.lobbyid;
+        const statusid = data.statusid;
+        const eventid = data.eventid;
+        const numberoftalbes = data.numberoftalbes;
+        const numberofguests = data.numberofguests;
+        const description = data.description;
+        const fromdate = data.fromdate;
+        const todate = data.todate;
+        const menu = data.menu;
+        const sound = data.sound;
+        const decoration = data.decoration;
+        const light = data.light;
+        const mc = data.mc;
+        const contentdisplay = data.contentdisplay;
+        const singer = data.singer;
+        const entertainment = data.entertainment;
+
+        // Contract.create({
+
+        // })
+    })
     
 }
 
