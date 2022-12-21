@@ -97,11 +97,33 @@ exports.createContract = (req, res) => {
         // const contentdisplay = data.contentdisplay;
         // const singer = data.singer;
         // const entertainment = data.entertainment;
+        const sendback = {
+            userid : data.userid,
+            customerid : data.customerid,
+            lobbyid : data.lobbyid,
+            statusid : data.statusid,
+            eventid : data.eventid,
+            numberoftables : data.numberoftables,
+            numberofguests : data.numberofguests,
+            description : data.description,
+            fromdate : data.fromdate,
+            todate : data.todate,
+            menu : data.menu,
+            sound : data.sound,
+            decoration : data.decoration,
+            light : data.light,
+            mc : data.mc,
+            contentdisplay : data.contentdisplay,
+            singer : data.singer,
+            entertainment : data.entertainment,
+        }
 
+        res.send(sendback);
 
-        
+        Bookingreservation.update({
+            statusid: 1
+        })
     })
-    
 }
 
 exports.updateContract = (req, res) => {
