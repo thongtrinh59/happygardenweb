@@ -27,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
             Bookingreservation.belongsTo(models.Event, {
                 foreignKey: "eventid"
             });
+
+            Bookingreservation.hasOne(models.Contract, {
+                foreignKey: "bookingid"
+            });
+
         }
     }
     Bookingreservation.init({
@@ -39,9 +44,12 @@ module.exports = (sequelize, DataTypes) => {
         userid: DataTypes.INTEGER,
         customerid: DataTypes.INTEGER,
         lobbyid: DataTypes.INTEGER,
-        statusid: DataTypes.INTEGER,
+        statusid: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1
+        },
         eventid: DataTypes.INTEGER,
-        numberoftalbes: DataTypes.INTEGER,
+        numberoftables: DataTypes.INTEGER,
         numberofguests: DataTypes.INTEGER,
         description: DataTypes.STRING,
         // datetime: DataTypes.DATE,

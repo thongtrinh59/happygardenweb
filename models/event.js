@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "eventid",
       })
 
-      Event.hasMany(models.Contract, {
-        foreignKey: "eventid",
-      })
+      // Event.hasMany(models.Contract, {
+      //   foreignKey: "eventid",
+      // })
 
       // Event.belongsToMany(models.TempEmployee, {
       //   through: {model: "tempemployee_event"},

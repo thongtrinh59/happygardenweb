@@ -16,7 +16,7 @@ exports.validate = (method) => {
                 body('address').optional(),
                 body('companyname').optional(),
                 body('nationalid').exists(),
-                body('taxnumber').optional()
+                body('taxnumber').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -29,7 +29,7 @@ exports.validate = (method) => {
                 body('address').optional(),
                 body('companyname').optional(),
                 body('nationalid').optional(),
-                body('taxnumber').optional()
+                body('taxnumber').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]

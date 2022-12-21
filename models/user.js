@@ -17,9 +17,9 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "userid",
             })
 
-            User.hasMany(models.Contract, {
-                foreignKey: "userid",
-            })
+            // User.hasMany(models.Contract, {
+            //     foreignKey: "userid",
+            // })
 
         }
     }

@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 			  foreignKey: "lobbyid",
 		  })
 
-      Lobby.hasMany(models.Contract, {
-			  foreignKey: "lobbyid",
-		  })
+      // Lobby.hasMany(models.Contract, {
+			//   foreignKey: "lobbyid",
+		  // })
     }
   }
   Lobby.init({

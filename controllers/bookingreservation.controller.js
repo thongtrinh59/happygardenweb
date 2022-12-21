@@ -9,6 +9,36 @@ const { DATE } = require("sequelize");
 const Bookingreservation = db.Bookingreservation;
 
 
+exports.validate = (method) => {
+    switch (method) {
+        case 'createBookingreservation': {
+            return [
+                body('customerid').exists(),
+                body('userid').exists(),
+                body('lobbyid').exists(),
+                body('statusid').optional(),
+                body('eventid').exists(),
+                body('numberoftables').exists(),
+                body('numberofguests').exists(),
+                body('description').exists(),
+                body('fromdate').exists(),
+                body('todate').exists(),
+                body('menu').exists(),
+                body('decoration').exists(),
+                body('sound').exists(),
+                body('light').exists(),
+                body('mc').exists(),
+                body('contentdisplay').exists(),
+                body('singer').exists(),
+                body('entertainment').exists(),
+                // body('phone').optional().isInt(),
+                // body('status').optional().isIn(['enabled', 'disabled'])
+            ]
+        }
+    }
+}
+
+
 exports.createBookingreservation = (req, res) => { 
     
     const userid = req.body.userid;
@@ -17,7 +47,7 @@ exports.createBookingreservation = (req, res) => {
     const lobbyid = req.body.lobbyid;
     const statusid = req.body.statusid;
     const eventid = req.body.eventid;
-    const numberoftalbes = req.body.numberoftalbes;
+    const numberoftables = req.body.numberoftables;
     const numberofguests = req.body.numberofguests;
     const description = req.body.description;
     // const datetime = req.body.datetime;
@@ -40,7 +70,7 @@ exports.createBookingreservation = (req, res) => {
         lobbyid: lobbyid,
         statusid: statusid,
         eventid: eventid,
-        numberoftalbes: numberoftalbes,
+        numberoftables: numberoftalbes,
         numberofguests: numberofguests,
         description: description,
         fromdate: fromdate,

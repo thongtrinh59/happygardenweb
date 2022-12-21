@@ -61,6 +61,15 @@ exports.createContract = (req, res) => {
     const deposit = req.body.deposit;
     const percentage = req.body.percentage;
 
+    Contract.create({
+        bookingid: bookingid,
+        number: number,
+        contractvalue: contractvalue,
+        deposit: deposit,
+        percentage: percentage
+    });
+    
+
 
     Bookingreservation.findByPk(bookingid, {
         include: [
@@ -70,28 +79,27 @@ exports.createContract = (req, res) => {
     .then((data) => {
         // console.log(data.userid);
         // res.send(data);
-        const userid = data.userid;
-        const customerid = data.customerid;
-        const lobbyid = data.lobbyid;
-        const statusid = data.statusid;
-        const eventid = data.eventid;
-        const numberoftalbes = data.numberoftalbes;
-        const numberofguests = data.numberofguests;
-        const description = data.description;
-        const fromdate = data.fromdate;
-        const todate = data.todate;
-        const menu = data.menu;
-        const sound = data.sound;
-        const decoration = data.decoration;
-        const light = data.light;
-        const mc = data.mc;
-        const contentdisplay = data.contentdisplay;
-        const singer = data.singer;
-        const entertainment = data.entertainment;
+        // const userid = data.userid;
+        // const customerid = data.customerid;
+        // const lobbyid = data.lobbyid;
+        // const statusid = data.statusid;
+        // const eventid = data.eventid;
+        // const numberoftables = data.numberoftables;
+        // const numberofguests = data.numberofguests;
+        // const description = data.description;
+        // const fromdate = data.fromdate;
+        // const todate = data.todate;
+        // const menu = data.menu;
+        // const sound = data.sound;
+        // const decoration = data.decoration;
+        // const light = data.light;
+        // const mc = data.mc;
+        // const contentdisplay = data.contentdisplay;
+        // const singer = data.singer;
+        // const entertainment = data.entertainment;
 
-        // Contract.create({
 
-        // })
+        
     })
     
 }

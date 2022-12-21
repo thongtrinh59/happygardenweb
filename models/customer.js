@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "customerid",
             });
 
-            Customer.hasMany(models.Contract, {
-                foreignKey: "customerid",
-            });
+            // Customer.hasMany(models.Contract, {
+            //     foreignKey: "customerid",
+            // });
         }
     }
     Customer.init({
