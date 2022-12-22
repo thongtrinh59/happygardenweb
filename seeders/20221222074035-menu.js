@@ -13,19 +13,28 @@ module.exports = {
      * }], {});
     */
     await queryInterface.bulkInsert(
-      "event", [
+      "menu", [
         {
-          type: "tiệc cưới",
+          menuname: "đồng",
+          price: "3990000",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "tiệc cá nhân",
+          menuname: "bạc",
+          price: "4450000",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
         {
-          type: "tiệc công ty",
+          menuname: "vàng",
+          price: "5010000",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          menuname: "kim cương",
+          price: "5500000",
           createdAt: new Date(),
           updatedAt: new Date(),
         },
@@ -40,6 +49,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    await queryInterface.bulkDelete("event", null, {});
+    await queryInterface.bulkDelete("menu", null, {});
   }
 };

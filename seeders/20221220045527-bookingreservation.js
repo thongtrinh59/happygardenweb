@@ -21,10 +21,11 @@ module.exports = {
         eventid: 1,
         numberoftables: 1,
         numberofguests: 3,
+        set: 2,
         description: "new",
         fromdate: "2022-01-17T03:23:35.266Z",
 	      todate: "2022-02-17T07:23:35.266Z",
-        menu: "1",
+        menuid: 1,
         decoration: "san khau",
         sound: "có",
         light: "có",
@@ -43,10 +44,11 @@ module.exports = {
         eventid: 1,
         numberoftables: 1,
         numberofguests: 3,
+        set: 2,
         description: "new",
         fromdate: "2022-02-17T03:23:35.266Z",
 	      todate: "2022-03-17T07:23:35.266Z",
-        menu: "1",
+        menuid: 1,
         decoration: "san khau",
         sound: "có",
         light: "có",
@@ -65,10 +67,11 @@ module.exports = {
         eventid: 1,
         numberoftables: 1,
         numberofguests: 3,
+        set: 2,
         description: "new",
         fromdate: "2022-03-17T03:23:35.266Z",
 	      todate: "2022-04-17T07:23:35.266Z",
-        menu: "1",
+        menuid: 1,
         decoration: "san khau",
         sound: "có",
         light: "có",
@@ -87,10 +90,11 @@ module.exports = {
         eventid: 1,
         numberoftables: 1,
         numberofguests: 3,
+        set: 2,
         description: "new",
         fromdate: "2022-04-17T03:23:35.266Z",
 	      todate: "2022-05-17T07:23:35.266Z",
-        menu: "1",
+        menuid: 1,
         decoration: "san khau",
         sound: "có",
         light: "có",
@@ -112,5 +116,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    await queryInterface.bulkDelete("bookingreservation", null, {});
+
   }
 };

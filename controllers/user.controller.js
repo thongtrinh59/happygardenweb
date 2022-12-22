@@ -1,32 +1,27 @@
 const db = require("../models");
-var bcrypt = require("bcryptjs");
 const Op = db.Sequelize.Op;
 const User = db.User;
+const { body, validationResult } = require('express-validator');
 
-exports.create = (req, res) => {
-    res.status(200).send("Create successfully");
+
+
+exports.validate = (method) => {
+    switch (method) {
+        case 'updateUser': {
+            return [
+                body('username', `username doesn't exists`).optional(),
+                body('email', 'Invalid email').optional().isEmail(),
+                body('phonenumber').optional(),
+                body('password').optional(),
+                body('title').optional(),
+                body('nationalid').optional(),
+                // body('phone').optional().isInt(),
+                // body('status').optional().isIn(['enabled', 'disabled'])
+            ]
+        }
+    }
 }
 
-
-exports.allAccess = (req, res) => {
-    res.status(200).send("Public");
-};
-
-exports.userBoard = (req, res) => {
-    res.status(200).send("User");
-};
-
-exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin");
-};
-
-exports.moderatorBoard = (req, res) => {
-    res.status(200).send("Moderator");
-};
-
-exports.employeeBoard = (req, res) => {
-    res.status(200).send("Employee");
-};
 
 exports.findAll = (req, res) => {
     User.findAll({
@@ -68,12 +63,6 @@ exports.findOne = (req, res) => {
         });
 };
 
-// const query = {
-//     username: req.query.username,
-//     email: req.query.email
-// }
-
-// query.
 
 exports.findWithFilters = (req, res) => {
     const username = req.query.username;
@@ -119,77 +108,51 @@ exports.findWithFilters = (req, res) => {
         });
 };
 
-// exports.update = (req, res) => {
-//     const id = req.params.id;
-//     User.update({
-//             name: req.body.name,
-//             email: req.body.email,
-//             password: bcrypt.hashSync(req.body.password, 8),
-//         }, {
-//             where: { id: id },
-//         })
-//         .then((num) => {
-//             if (num == 1) {
-//                 res.send({
-//                     message: {
-//                         heading: "Success !!!",
-//                         message: "User đã được cập nhật thành công",
-//                     },
-//                 });
-//             } else {
-//                 res.status(400).send({
-//                     message: {
-//                         heading: "Oh snap! You got an error!",
-//                         message: `Cannot update user with id=${id}. Maybe user was not found or req.body is empty!`,
-//                     },
-//                 });
-//             }
-//         })
-//         .catch((err) => {
-//             res.status(500).send({
-//                 message: "Error updating user with id=" + id,
-//             });
-//             console.log(err);
-//         });
-// };
-
-// exports.hide = (req, res) => {
-//     const id = req.query.id;
-//     const hide = req.query.hide;
-//     User.update({
-//             hide: hide,
-//         }, {
-//             where: { id: id },
-//         })
-//         .then((num) => {
-//             if (num == 1) {
-//                 res.send({
-//                     message: "user was deleted successfully!",
-//                 });
-//             } else {
-//                 res.send({
-//                     message: `Cannot delete user with id=${id}. Maybe user was not found!`,
-//                 });
-//             }
-//         })
-//         .catch((err) => {
-//             res.status(500).send({
-//                 message: "Could not delete user with id=" + id,
-//             });
-//             console.log(err);
-//         });
-// };
-
 
 
 
 
 exports.update = (req, res) => {
-    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const id = parseInt(req.params.id, 10);
+    console.log("this is user param", id);
+    User.update({
+        username: req.body.username,
+        phonenumber: req.body.phonenumber,
+        email: req.body.email,
+        nationalid: req.body.nationalid,
+        password: req.body.password,
+        title: req.body.title
+    }, {
+        where: { userid: id },
+    })
+    .then((num) => {
+        if (num == 1) {
+            res.send({
+                message: {
+                    heading: "Success !!!",
+                    message: "Update user successfully",
+                },
+            });
+        } else {
+            res.status(400).send({
+                message: {
+                    heading: "Oh snap! You got an error!",
+                    message: `Cannot update user with id=${id}. Maybe user was not found or req.body is empty!`,
+                },
+            });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error updating user with id=" + id,
+        });
+        console.log(err);
+    });
 }
 
-exports.hide = (req, res) => {
-    
-}
 
 

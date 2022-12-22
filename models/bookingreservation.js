@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
                 foreignKey: "bookingid"
             });
 
+            Bookingreservation.belongsTo(models.Menu, {
+                foreignKey: "menuid"
+            });
+
         }
     }
     Bookingreservation.init({
@@ -51,11 +55,11 @@ module.exports = (sequelize, DataTypes) => {
         eventid: DataTypes.INTEGER,
         numberoftables: DataTypes.INTEGER,
         numberofguests: DataTypes.INTEGER,
+        set: DataTypes.INTEGER,
         description: DataTypes.STRING,
-        // datetime: DataTypes.DATE,
         fromdate: DataTypes.DATE,
         todate: DataTypes.DATE,
-        menu: DataTypes.STRING,
+        menuid: DataTypes.INTEGER,
         decoration: DataTypes.STRING,
         sound: DataTypes.STRING,
         light: DataTypes.STRING,

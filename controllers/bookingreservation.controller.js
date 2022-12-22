@@ -1,8 +1,5 @@
 const db = require("../models");
-var bcrypt = require("bcryptjs");
 const Op = db.Sequelize.Op;
-// const Customer = db.Customer;
-// const { body } = require('express-validator/check')
 const { body, validationResult } = require('express-validator');
 const bookingreservation = require("../models/bookingreservation");
 const { DATE } = require("sequelize");
@@ -13,17 +10,45 @@ exports.validate = (method) => {
     switch (method) {
         case 'createBookingreservation': {
             return [
+                //change later when meeting
                 body('customerid').exists(),
                 body('userid').exists(),
                 body('lobbyid').exists(),
                 body('statusid').optional(),
                 body('eventid').exists(),
+                body('set').exists(),
                 body('numberoftables').exists(),
                 body('numberofguests').exists(),
                 body('description').exists(),
                 body('fromdate').exists(),
                 body('todate').exists(),
-                body('menu').exists(),
+                body('menuid').exists(),
+                body('decoration').exists(),
+                body('sound').exists(),
+                body('light').exists(),
+                body('mc').exists(),
+                body('contentdisplay').exists(),
+                body('singer').exists(),
+                body('entertainment').exists(),
+                // body('phone').optional().isInt(),
+                // body('status').optional().isIn(['enabled', 'disabled'])
+            ]
+        }
+        case 'updateBookingreservation': {
+            return [
+                //change later when meeting
+                body('customerid').exists(),
+                body('userid').exists(),
+                body('lobbyid').exists(),
+                body('statusid').optional(),
+                body('eventid').exists(),
+                body('set').exists(),
+                body('numberoftables').exists(),
+                body('numberofguests').exists(),
+                body('description').exists(),
+                body('fromdate').exists(),
+                body('todate').exists(),
+                body('menuid').exists(),
                 body('decoration').exists(),
                 body('sound').exists(),
                 body('light').exists(),
@@ -49,11 +74,11 @@ exports.createBookingreservation = (req, res) => {
     const eventid = req.body.eventid;
     const numberoftables = req.body.numberoftables;
     const numberofguests = req.body.numberofguests;
+    const set = req.body.set;
     const description = req.body.description;
-    // const datetime = req.body.datetime;
     const fromdate = req.body.fromdate;
     const todate = req.body.todate;
-    const menu = req.body.menu;
+    const menuid = req.body.menuid;
     const decoration = req.body.decoration;
     const sound = req.body.sound;
     const light = req.body.light;
@@ -72,10 +97,11 @@ exports.createBookingreservation = (req, res) => {
         eventid: eventid,
         numberoftables: numberoftalbes,
         numberofguests: numberofguests,
+        set: set,
         description: description,
         fromdate: fromdate,
         todate: todate,
-        menu: menu,
+        menuid: menuid,
         decoration: decoration,
         sound: sound,
         light: light,
@@ -104,10 +130,11 @@ exports.updateBookingreservation = (req, res) => {
         eventid: req.body.eventid,
         numberoftalbes: req.body.numberoftalbes,
         numberofguests: req.body.numberofguests,
+        set: req.body.set,
         description: req.body.description,
         fromdate: req.body.fromdate,
         todate: req.body.todate,
-        menu: req.body.menu,
+        menuid: req.body.menuid,
         decoration: req.body.decoration,
         sound: req.body.sound,
         light: req.body.light,
@@ -200,11 +227,7 @@ exports.getBookingByDate = (req, res) => {
         ],
         where: [{
             datetime: {
-                // '$month': month,
-                // '$year': year1
                 [Op.between]: [from_date, to_date],
-                // year: db.where(db.fn('YEAR', db.col('datetime')), year1),
-                // datetime: db.where(db.fn('MONTH', db.col('datetime')), month),
             },
         }]
     })

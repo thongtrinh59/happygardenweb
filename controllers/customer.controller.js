@@ -1,8 +1,6 @@
 const db = require("../models");
-var bcrypt = require("bcryptjs");
 const Op = db.Sequelize.Op;
 const Customer = db.Customer;
-// const { body } = require('express-validator/check')
 const { body, validationResult } = require('express-validator');
 
 
@@ -43,18 +41,8 @@ exports.createCustomer = (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
     Customer.create({
-        // where: {
-        //     customername: req.body.customername,
-        //     phonenumber: req.body.phonenumber,
-            
-            
-        //     nationalid: req.body.nationalid,
-            
-        // },
         customername: req.body.customername,
         phonenumber: req.body.phonenumber,
-            
-            
         nationalid: req.body.nationalid,
         email: req.body.email,
         companyname: req.body.companyname,
