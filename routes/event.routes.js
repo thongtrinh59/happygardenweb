@@ -21,7 +21,18 @@ module.exports = function (app) {
 	//     controller.moderatorBoard
 	//   );
 
-	router.get("/", controller.getAllEvents);
+	//include
+	// router.get(
+	// 	"/", 
+	// 	[authJwt.verifyToken], 
+	// 	controller.getAllEvents
+	// );
+
+	//not
+	router.get(
+		"/", 
+		controller.getAllEvents
+	);
 
 	app.use("/api/v1/events", router);
 };

@@ -19,7 +19,18 @@ module.exports = function (app) {
 	//     controller.moderatorBoard
 	//   );
 
-	router.get("/", controller.getAllStatus);
+	//inlucde
+	// router.get(
+	// 	"/",
+	// 	[authJwt.verifyToken], 
+	// 	controller.getAllStatus
+	// );
+
+	//not
+	router.get(
+		"/",
+		controller.getAllStatus
+	);
 
 	app.use("/api/v1/statuses", router);
 };

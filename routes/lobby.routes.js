@@ -20,7 +20,18 @@ module.exports = function (app) {
 	//     controller.adminBoard
 	//   );
 
-	router.get("/", controller.getAllLobbies);
+	//include
+	// router.get(
+	// 	"/", 
+	// 	[authJwt.verifyToken], 
+	// 	controller.getAllLobbies
+	// );
+
+	//not
+	router.get(
+		"/", 
+		controller.getAllLobbies
+	);
 
 	app.use("/api/v1/lobbies", router);
 };

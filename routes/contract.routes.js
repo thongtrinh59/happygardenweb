@@ -12,13 +12,41 @@ module.exports = function (app) {
 		next();
 	});
 
-	//   app.get(
-	//     "/api/test/mod",
-	//     [authJwt.verifyToken],
-	//     controller.moderatorBoard
-	//   );
+	//include
+	// router.post(
+	// 	"/", 
+    //     // [authJwt.verifyToken],
+	// 	// body('email').isEmail(),
+	// 	// controller.validate('createCustomer'),
+	// 	controller.createContract
+	// );
 
+	// // router.put(
+	// // 	"/contract/:id", 
+	// // 	// controller.validate('updateCustomer'),
+    // //     [authJwt.verifyToken],
+	// // 	controller.updateContract
+	// // );
 
+	// router.get(
+    //     "/contract/:id", 
+    //     // [authJwt.verifyToken], 
+    //     controller.getContractByID
+    // );
+
+	// router.get(
+    //     "/", 
+    //     // [authJwt.verifyToken], 
+    //     controller.getAllContract
+    // );
+
+	// // router.delete(
+    // //     "/contract/:id", 
+    // //     [authJwt.verifyToken],
+    // //     controller.deleteContract
+    // // );
+
+	//not
 	router.post(
 		"/", 
         // [authJwt.verifyToken],

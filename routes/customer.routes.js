@@ -13,36 +13,64 @@ module.exports = function (app) {
 	});
 
 	
+	//include
+	// router.post(
+	// 	"/", 
+	// 	[authJwt.verifyToken], 
+	// 	controller.validate('createCustomer'),
+	// 	controller.createCustomer
+	// );
 
+	// router.put(
+	// 	"/customer/:id",
+	// 	[authJwt.verifyToken], 
+	// 	controller.validate('updateCustomer'),
+	// 	controller.updateCustomer
+	// );
+
+	// router.get(
+	// 	"/customer/:id",
+	// 	[authJwt.verifyToken],
+	// 	controller.getCustomerByID
+	// );
+
+	// router.get(
+	// 	"/", 
+	// 	[authJwt.verifyToken],
+	//  	controller.getAllCustomers
+	// );
+
+	// router.delete(
+	// 	"/customer/:id", 
+	// 	[authJwt.verifyToken],
+	// 	controller.deleteCustomer
+	// );
+
+	//not
 	router.post(
 		"/", 
-		// [authJwt.verifyToken], 
 		controller.validate('createCustomer'),
 		controller.createCustomer
 	);
 
 	router.put(
 		"/customer/:id",
-		// [authJwt.verifyToken], 
 		controller.validate('updateCustomer'),
 		controller.updateCustomer
 	);
 
 	router.get(
 		"/customer/:id",
-		// [authJwt.verifyToken],
 		controller.getCustomerByID
 	);
 
 	router.get(
 		"/", 
-		// [authJwt.verifyToken],
 	 	controller.getAllCustomers
 	);
 
 	router.delete(
 		"/customer/:id", 
-		// [authJwt.verifyToken],
 		controller.deleteCustomer
 	);
 

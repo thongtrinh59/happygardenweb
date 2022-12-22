@@ -17,13 +17,51 @@ module.exports = function (app) {
   //   controller.moderatorBoard
   // );
 
-  router.put("/user/:id", controller.update);
+  //include jwt
+  // router.put(
+  //   "/user/:id", 
+  //   [authJwt.verifyToken],
+  //   controller.update
+  // );
 
-  router.get("/user/:id", controller.findOne);
+  // router.get(
+  //   "/user/:id",
+  //   [authJwt.verifyToken],
+  //   controller.findOne
+  // );
 
-  router.get("/filters", controller.findWithFilters);
+  // router.get(
+  //   "/filters", 
+  //   [authJwt.verifyToken], 
+  //   controller.findWithFilters
+  // );
 
-  router.get("/", controller.findAll);
+  // router.get(
+  //   "/",
+  //   [authJwt.verifyToken], 
+  //   controller.findAll
+  // );
+
+  //not include jwt
+  router.put(
+    "/user/:id", 
+    controller.update
+  );
+
+  router.get(
+    "/user/:id",
+    controller.findOne
+  );
+
+  router.get(
+    "/filters", 
+    controller.findWithFilters
+  );
+
+  router.get(
+    "/",
+    controller.findAll
+  );
 
   app.use("/api/v1/users", router);
 };
