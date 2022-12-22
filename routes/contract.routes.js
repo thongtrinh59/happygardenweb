@@ -62,30 +62,30 @@ module.exports = function (app) {
 		controller.createContract
 	);
 
-	router.put(
-		"/contract/:id", 
-		// controller.validate('updateCustomer'),
-        [authJwt.verifyToken],
-		controller.updateContract
-	);
+	// router.put(
+	// 	"/contract/:id", 
+	// 	// controller.validate('updateCustomer'),
+    //     [authJwt.verifyToken],
+	// 	controller.updateContract
+	// );
 
 	router.get(
         "/contract/:id", 
-        [authJwt.verifyToken], 
+        // [authJwt.verifyToken], 
         controller.getContractByID
     );
 
 	router.get(
         "/", 
-        [authJwt.verifyToken], 
+        // [authJwt.verifyToken], 
         controller.getAllContract
     );
 
-	router.delete(
-        "/contract/:id", 
-        [authJwt.verifyToken],
-        controller.deleteContract
-    );
+	// router.delete(
+    //     "/contract/:id", 
+    //     [authJwt.verifyToken],
+    //     controller.deleteContract
+    // );
 
 	app.use("/api/v1/contracts", router);
 };

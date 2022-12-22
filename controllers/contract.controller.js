@@ -126,21 +126,54 @@ exports.createContract = (req, res) => {
     })
 }
 
-exports.updateContract = (req, res) => {
+// exports.updateContract = (req, res) => {
 
-}
+// }
 
 exports.getAllContract = (req, res) => {
+    Contract.findAll({
+        order: [
+            ["updatedAt", "DESC"]
+        ],
+        include: [
+
+        ],
+    })
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving demand_status.",
+        });
+        console.log(err);
+    });
 
 }
 
 exports.getContractByID = (req, res) => {
+    const id = req.params.id;
+    console.log("this is id");
+    console.log(id);
+    Contract.findByPk(id, {
+        include: [
 
+        ],
+    })
+    .then((data) => {
+        res.send(data);
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error retrieving Customer with id=" + id,
+        });
+        console.log(err);
+    });
 }
 
-exports.deleteContract = (req, res) => {
+// exports.deleteContract = (req, res) => {
 
-}
+// }
 
 
 
