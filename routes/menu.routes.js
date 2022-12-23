@@ -1,6 +1,5 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/event.controller");
-// const { check } = require('express-validator/check')
+const controller = require("../controllers/menu.controller");
 const { body, validationResult } = require('express-validator');
 
 
@@ -19,14 +18,14 @@ module.exports = function (app) {
 	// router.get(
 	// 	"/", 
 	// 	[authJwt.verifyToken], 
-	// 	controller.getAllEvents
+	// 	controller.getAllMenus
 	// );
 
 	//not
 	router.get(
 		"/", 
-		controller.getAllEvents
+		controller.getAllMenus
 	);
 
-	app.use("/api/v1/events", router);
+	app.use("/api/v1/menus", router);
 };
