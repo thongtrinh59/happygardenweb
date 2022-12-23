@@ -95,7 +95,7 @@ exports.createBookingreservation = (req, res) => {
         lobbyid: lobbyid,
         statusid: statusid,
         eventid: eventid,
-        numberoftables: numberoftalbes,
+        numberoftables: numberoftables,
         numberofguests: numberofguests,
         set: set,
         description: description,
