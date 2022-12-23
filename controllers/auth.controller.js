@@ -53,8 +53,12 @@ exports.signin = (req, res) => {
             });
             res.status(200).send({
                 id: user._id,
+                userid: user.userid,
                 username: user.username,
                 email: user.email,
+                phonenumber: user.phonenumber,
+                title: user.title,
+                nationalid: user.nationalid,
                 accessToken: token,
             });
         })
