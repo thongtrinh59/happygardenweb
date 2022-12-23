@@ -3,7 +3,7 @@ const Op = db.Sequelize.Op;
 const Menu = db.Menu;
 
 
-exports.getAllEvents = (req, res) => {
+exports.getAllMenus = (req, res) => {
     Menu.findAll({
         order: [
             ["updatedAt", "DESC"]
