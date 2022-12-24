@@ -202,7 +202,24 @@ exports.getAllBooking = (req, res) => {
             ["updatedAt", "DESC"]
         ],
         include: [
-
+            {
+                model: db.Event,
+            },
+            {
+                model: db.Status,
+            },
+            {
+                model: db.Lobby,
+            },
+            {
+                model: db.Menu,
+            },
+            {
+                model: db.User,
+            },
+            {
+                model: db.Customer,
+            },
         ],
     })
     .then((data) => {
@@ -243,6 +260,39 @@ exports.getBookingByDate = (req, res) => {
     .catch((err) => {
         res.status(500).send({
             message: err.message || "Some error occurred while retrieving demand_status.",
+        });
+        console.log(err);
+    });
+}
+
+exports.cancelBooking = (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    console.log("this is cancel param", id);
+    Bookingreservation.update({
+        statusid: 3,
+    }, {
+        where: { bookingid: id },
+    })
+    .then((num) => {
+        if (num == 1) {
+            res.send({
+                message: {
+                    heading: "Success !!!",
+                    message: "Cancel booking reservation successfully",
+                },
+            });
+        } else {
+            res.status(400).send({
+                message: {
+                    heading: "Oh snap! You got an error!",
+                    message: `Cannot cancel booking reservation with id=${id}. Maybe booking was not found or req.body is empty!`,
+                },
+            });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: "Error retrieving Booking reservation with id=" + id,
         });
         console.log(err);
     });

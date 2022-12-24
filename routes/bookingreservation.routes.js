@@ -69,7 +69,7 @@ module.exports = function (app) {
 	);
 
 	router.get(
-        "/bookingreservations/:id", 
+        "/bookingreservation/:id", 
         // [authJwt.verifyToken], 
         controller.getBookingByID
     );
@@ -90,6 +90,12 @@ module.exports = function (app) {
         "/bookingreservation", 
         // [authJwt.verifyToken], 
         controller.getBookingByDate
+    );
+
+	router.put(
+        "/bookingreservation/:id/action/cancel", 
+        // [authJwt.verifyToken], 
+        controller.cancelBooking
     );
 
 	app.use("/api/v1/bookingreservations", router);
