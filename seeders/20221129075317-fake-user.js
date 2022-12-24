@@ -15,7 +15,7 @@ module.exports = {
     await queryInterface.bulkInsert(
       "users", [{
         username: "thomas",
-        phonenumber: 12345,
+        phonenumber: "12345",
         email: "th@gmail.com",
         password: "12454",
         title: "admin",
@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         username: "sds",
-        phonenumber: 232432,
+        phonenumber: "232432",
         email: "tadfah@gmail.com",
         password: "1243as54",
         title: "staff",
@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         username: "gaefs",
-        phonenumber: 177845,
+        phonenumber: "177845",
         email: "thghr@gmail.com",
         password: "1245a1ad4",
         title: "staff",
@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         username: "jui",
-        phonenumber: 11235,
+        phonenumber: "11235",
         email: "thui@gmail.com",
         password: "1241254",
         title: "staff",
