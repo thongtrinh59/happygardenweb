@@ -1,4 +1,5 @@
 const db = require("../models");
+const parseTime = require("../tools/parsetime");
 const Op = db.Sequelize.Op;
 const User = db.User;
 const { body, validationResult } = require('express-validator');
@@ -75,8 +76,10 @@ exports.findWithFilters = (req, res) => {
     const from_date = req.query.from_date;
     const to_date = req.query.to_date;
     const limit = parseInt(req.query.limit) || null;
+    //08/10/2020 12:30:00
 
-    
+    // const new_fromdate = parseTime(from_date);
+    // const new_todate = parseTime(to_date);
     
     User.findAll({
             order: [

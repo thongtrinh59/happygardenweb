@@ -4,6 +4,7 @@ const { body, validationResult } = require('express-validator');
 const bookingreservation = require("../models/bookingreservation");
 const { DATE } = require("sequelize");
 const Bookingreservation = db.Bookingreservation;
+var pt = require('../tools/parsetime');
 
 
 exports.validate = (method) => {
@@ -19,17 +20,17 @@ exports.validate = (method) => {
                 body('set').exists(),
                 body('numberoftables').exists(),
                 body('numberofguests').exists(),
-                body('description').exists(),
+                body('description').optional(),
                 body('fromdate').exists(),
                 body('todate').exists(),
                 body('menuid').exists(),
-                body('decoration').exists(),
+                body('decoration').optional(),
                 body('sound').exists(),
                 body('light').exists(),
                 body('mc').exists(),
-                body('contentdisplay').exists(),
+                body('contentdisplay').optional(),
                 body('singer').exists(),
-                body('entertainment').exists(),
+                body('entertainment').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -45,17 +46,17 @@ exports.validate = (method) => {
                 body('set').exists(),
                 body('numberoftables').exists(),
                 body('numberofguests').exists(),
-                body('description').exists(),
+                body('description').optional(),
                 body('fromdate').exists(),
                 body('todate').exists(),
                 body('menuid').exists(),
-                body('decoration').exists(),
+                body('decoration').optional(),
                 body('sound').exists(),
                 body('light').exists(),
                 body('mc').exists(),
-                body('contentdisplay').exists(),
+                body('contentdisplay').optional(),
                 body('singer').exists(),
-                body('entertainment').exists(),
+                body('entertainment').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -65,6 +66,8 @@ exports.validate = (method) => {
 
 
 exports.createBookingreservation = (req, res) => { 
+    console.log("1234");
+    console.log("ok");
     
     const userid = req.body.userid;
 
@@ -87,7 +90,8 @@ exports.createBookingreservation = (req, res) => {
     const singer = req.body.singer;
     const entertainment = req.body.entertainment;
 
-
+    const new_fromdate = pt.parseTime(fromdate);
+    const new_todate = pt.parseTime(todate);
 
     Bookingreservation.create({
         userid: userid,
@@ -99,8 +103,8 @@ exports.createBookingreservation = (req, res) => {
         numberofguests: numberofguests,
         set: set,
         description: description,
-        fromdate: fromdate,
-        todate: todate,
+        fromdate: new_fromdate,
+        todate: new_todate,
         menuid: menuid,
         decoration: decoration,
         sound: sound,
@@ -132,8 +136,8 @@ exports.updateBookingreservation = (req, res) => {
         numberofguests: req.body.numberofguests,
         set: req.body.set,
         description: req.body.description,
-        fromdate: req.body.fromdate,
-        todate: req.body.todate,
+        fromdate: pt.parseTime(req.body.fromdate),
+        todate: pt.parseTime(req.body.todate),
         menuid: req.body.menuid,
         decoration: req.body.decoration,
         sound: req.body.sound,
@@ -211,6 +215,8 @@ exports.getAllBooking = (req, res) => {
         console.log(err);
     });
 }
+
+
 
 exports.getBookingByDate = (req, res) => { 
     const year = req.query.year;

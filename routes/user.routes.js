@@ -11,11 +11,6 @@ module.exports = function (app) {
     next();
   });
 
-  // app.get(
-  //   "/api/test/mod",
-  //   [authJwt.verifyToken],
-  //   controller.moderatorBoard
-  // );
 
   //include jwt
   // router.put(
