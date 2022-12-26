@@ -252,7 +252,27 @@ exports.getBookingByDate = (req, res) => {
             datetime: {
                 [Op.between]: [from_date, to_date],
             },
-        }]
+        }],
+        include: [
+            {
+                model: db.Event,
+            },
+            {
+                model: db.Status,
+            },
+            {
+                model: db.Lobby,
+            },
+            {
+                model: db.Menu,
+            },
+            {
+                model: db.User,
+            },
+            {
+                model: db.Customer,
+            },
+        ],
     })
     .then((data) => {
         res.send(data);
