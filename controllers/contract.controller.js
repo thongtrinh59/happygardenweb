@@ -11,7 +11,7 @@ exports.validate = (method) => {
         case 'createContract': {
             return [
                 body('bookingid').exists().isInt(),
-                body('number').exists().isInt(),
+                body('number').exists(),
                 body('contractvalue').exists().isInt(),
                 body('deposit').exists().isInt(),
                 body('percentage').exists().isInt(),
