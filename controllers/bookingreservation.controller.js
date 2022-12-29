@@ -279,6 +279,9 @@ exports.getBookingByDate = (req, res) => {
             todate: {
                 [Op.lte]: new Date(stopDate),
             },
+            statusid: {
+                [Op.eq]: 1
+            }
         }],
         include: [
             {
