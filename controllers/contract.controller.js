@@ -92,7 +92,8 @@ exports.createContract = (req, res) => {
 
         // res.send(sendback);
 
-        res.send("Create contract successfully");
+        // res.send("Create contract successfully");
+        res.send({ message: "Create contract successfully!" });
 
         Bookingreservation.update(
             {statusid: 2},
