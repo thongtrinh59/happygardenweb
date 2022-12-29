@@ -290,6 +290,7 @@ exports.getBookingByDate = (req, res) => {
             todate: {
                 [Op.lte]: new Date(stopDate),
             },
+            statusid: [1,2]
         }],
         include: [
             {
@@ -315,40 +316,40 @@ exports.getBookingByDate = (req, res) => {
     .then((data) => {
         // newArr = emptyArray.concat(data);
         // emptyArray.push(data);
-        res.send(data);
+        // res.send(data);
 
 
         // let finalArray = [];
 
 
-        // for (let step = 1; step <= numberOfDays; step++) {
-        //     // console.log(data[step].fromdate);
-        //     // console.log(data[step].todate);
-        //     const currentDateStr = new Date(year + "-" + month + "-" + step + "Z")
-        //     let tempArr = [];
-        //     for (let i = 0; i < data.length; i++) {
-        //         // console.log(step, i);
-        //         const dateOnlyFromDate = (((data[i].fromdate).toISOString()).split("T"))[0];
-        //         const dateOnlyToDate = (((data[i].todate).toISOString()).split("T"))[0];
-        //         // console.log(dateOnlyFromDate);
-        //         // console.log(dateOnlyToDate);
+        for (let step = 1; step <= numberOfDays; step++) {
+            // console.log(data[step].fromdate);
+            // console.log(data[step].todate);
+            const currentDateStr = new Date(year + "-" + month + "-" + step + "Z")
+            let tempArr = [];
+            for (let i = 0; i < data.length; i++) {
+                // console.log(step, i);
+                const dateOnlyFromDate = (((data[i].fromdate).toISOString()).split("T"))[0];
+                const dateOnlyToDate = (((data[i].todate).toISOString()).split("T"))[0];
+                // console.log(dateOnlyFromDate);
+                // console.log(dateOnlyToDate);
 
-        //         if ( (currentDateStr >= new Date(dateOnlyFromDate)) && (currentDateStr <= new Date(dateOnlyToDate))) {
-        //             console.log("#########");
-        //             tempArr.push(data[i]);
-        //         }
-        //     }
-        //     const newObj = {
-        //         date:step,
-        //         day: weekday[(new Date(currentDateStr)).getDay()],
-        //         day2: (new Date(currentDateStr)).getDay(),
-        //         booking: tempArr
-        //     };
+                if ( (currentDateStr >= new Date(dateOnlyFromDate)) && (currentDateStr <= new Date(dateOnlyToDate))) {
+                    console.log("#########");
+                    tempArr.push(data[i]);
+                }
+            }
+            const newObj = {
+                date:step,
+                day: weekday[(new Date(currentDateStr)).getDay()],
+                day2: (new Date(currentDateStr)).getDay(),
+                booking: tempArr
+            };
 
-        //     finalArray.push(newObj);
-        // }
+            finalArray.push(newObj);
+        }
 
-        // res.send(finalArray);
+        res.send(finalArray);
         
     })
     .catch((err) => {
