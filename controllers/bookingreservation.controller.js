@@ -347,7 +347,7 @@ exports.getBookingByDate = (req, res) => {
     })
     .catch((err) => {
         res.status(500).send({
-            message: "Error retrieving Booking reservation with id=",
+            message: err,
         });
         console.log(err);
     });
