@@ -5,6 +5,7 @@ const bookingreservation = require("../models/bookingreservation");
 const { DATE } = require("sequelize");
 const Bookingreservation = db.Bookingreservation;
 var pt = require('../tools/parsetime');
+// var gdim = require('../tools/getDaysInMonth');
 
 
 exports.validate = (method) => {
@@ -90,8 +91,18 @@ exports.createBookingreservation = (req, res) => {
     const singer = req.body.singer;
     const entertainment = req.body.entertainment;
 
+    console.log("####################")
+    console.log(fromdate);
+    console.log(todate);
+    console.log("####################")
+
     const new_fromdate = pt.parseTime(fromdate);
     const new_todate = pt.parseTime(todate);
+
+    console.log("####################")
+    console.log(new_fromdate);
+    console.log(new_todate);
+    console.log("####################")
 
     Bookingreservation.create({
         userid: userid,
@@ -103,8 +114,8 @@ exports.createBookingreservation = (req, res) => {
         numberofguests: numberofguests,
         set: set,
         description: description,
-        fromdate: new_fromdate,
-        todate: new_todate,
+        fromdate: new Date(new_fromdate),
+        todate: new Date(new_todate),
         menuid: menuid,
         decoration: decoration,
         sound: sound,
@@ -136,8 +147,8 @@ exports.updateBookingreservation = (req, res) => {
         numberofguests: req.body.numberofguests,
         set: req.body.set,
         description: req.body.description,
-        fromdate: pt.parseTime(req.body.fromdate),
-        todate: pt.parseTime(req.body.todate),
+        fromdate: new Date(pt.parseTime(req.body.fromdate)),
+        todate: new Date(pt.parseTime(req.body.todate)),
         menuid: req.body.menuid,
         decoration: req.body.decoration,
         sound: req.body.sound,
@@ -233,57 +244,264 @@ exports.getAllBooking = (req, res) => {
     });
 }
 
-
-
-exports.getBookingByDate = (req, res) => { 
+exports.getBookingByDate = (req, res) => {
     const year = req.query.year;
     const month = req.query.month;
     const order = req.query.order;
+    const numberOfDays = pt.getDaysInMonth(year, month);
+    console.log(numberOfDays);
+    const startDate = new Date(year + "-" + month + "-" + "01" 
+                        + "T" + "00" + ":" + "00" + ":" + "00" + "Z");
 
-    const from_date = new Date(year, month - 1, 1);
-    const to_date = new Date(year, month , 0);
-    console.log(from_date);
-    console.log(to_date);
+    const stopDate = new Date(year + "-" + month + "-" +  numberOfDays
+                        + "T" + "23" + ":" + "59" + ":" + "59" + "Z");
+
+    const dateArr = pt.getDates(startDate, stopDate);
+    console.log(dateArr);
+
+    const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+
+    let emptyArray = [];
+    let newArr = [];
+
     Bookingreservation.findAll({
         order: [
             ["bookingid", order]
         ],
         where: [{
-            datetime: {
-                [Op.between]: [from_date, to_date],
+            // datetime: {
+            //     [Op.between]: [from_date, to_date],
+            // },
+            fromdate: {
+                [Op.gte]: new Date(startDate),
+            },
+            todate: {
+                [Op.lte]: new Date(stopDate),
             },
         }],
-        include: [
-            {
-                model: db.Event,
-            },
-            {
-                model: db.Status,
-            },
-            {
-                model: db.Lobby,
-            },
-            {
-                model: db.Menu,
-            },
-            {
-                model: db.User,
-            },
-            {
-                model: db.Customer,
-            },
-        ],
+        // include: [
+        //     {
+        //         model: db.Event,
+        //     },
+        //     {
+        //         model: db.Status,
+        //     },
+        //     {
+        //         model: db.Lobby,
+        //     },
+        //     {
+        //         model: db.Menu,
+        //     },
+        //     {
+        //         model: db.User,
+        //     },
+        //     {
+        //         model: db.Customer,
+        //     },
+        // ],
     })
     .then((data) => {
-        res.send(data);
+        // newArr = emptyArray.concat(data);
+        // emptyArray.push(data);
+        // res.send(data);
+
+        // for (let step = 0; step < data.length; step++) {
+        //     // console.log(data[step].fromdate);
+        //     // console.log(data[step].todate);
+
+            
+        // }
+        let finalArray = [];
+
+
+        for (let step = 1; step <= numberOfDays; step++) {
+            // console.log(data[step].fromdate);
+            // console.log(data[step].todate);
+            const currentDateStr = new Date(year + "-" + month + "-" + step + "Z")
+            let tempArr = [];
+            for (let i = 0; i < data.length; i++) {
+                // console.log(step, i);
+                const dateOnlyFromDate = (((data[i].fromdate).toISOString()).split("T"))[0];
+                const dateOnlyToDate = (((data[i].todate).toISOString()).split("T"))[0];
+                // console.log(dateOnlyFromDate);
+                // console.log(dateOnlyToDate);
+
+                if ( (currentDateStr >= new Date(dateOnlyFromDate)) && (currentDateStr <= new Date(dateOnlyToDate))) {
+                    console.log("#########");
+                    tempArr.push(data[i]);
+                }
+            }
+            const newObj = {
+                date:step,
+                day: weekday[(new Date(currentDateStr)).getDay()],
+                day2: (new Date(currentDateStr)).getDay(),
+                booking: tempArr
+            };
+
+            finalArray.push(newObj);
+        }
+
+        res.send(finalArray);
+        
     })
     .catch((err) => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving demand_status.",
+            message: "Error retrieving Booking reservation with id=",
         });
         console.log(err);
     });
 }
+
+
+// exports.getBookingByDate = (req, res) => { 
+//     const year = req.query.year;
+//     const month = req.query.month;
+//     const order = req.query.order;
+
+//     //test
+//     //how many days in a specific month
+//     const numberOfDays = pt.getDaysInMonth(year, month);
+//     console.log(numberOfDays);
+//     const startDate = new Date(year + "-" + month + "-" + "01" 
+//                         + "T" + "00" + ":" + "00" + ":" + "00" + "Z");
+
+//     const stopDate = new Date(year + "-" + month + "-" +  numberOfDays
+//                         + "T" + "23" + ":" + "59" + ":" + "59" + "Z");
+
+//     const dateArr = pt.getDates(startDate, stopDate);
+//     console.log(dateArr);
+
+//     let emptyArray = [];
+
+//     console.log('####################');
+//     console.log(typeof(dateArr));
+//     console.log(dateArr.length);
+
+//     for (let step = 0; step < dateArr.length; step++) {
+//         console.log('Walking east one step');
+//         const dtstr = dateArr[step];
+//         console.log(dtstr);
+//         const datestr = step.toString();
+//         console.log(datestr);
+
+//         // const datetype = new Date(dtstr);
+        
+//         Bookingreservation.findAll({
+//             order: [
+//                 ["bookingid", order]
+//             ],
+//             where: [{
+//                 fromdate: {
+//                     [Op.lte]: new Date(dtstr),
+//                 },
+//                 todate: {
+//                     [Op.gte]: new Date(dtstr),
+//                 },
+//             }],
+            
+//             include: [
+//                 {
+//                     model: db.Event,
+//                 },
+//                 {
+//                     model: db.Status,
+//                 },
+//                 {
+//                     model: db.Lobby,
+//                 },
+//                 {
+//                     model: db.Menu,
+//                 },
+//                 {
+//                     model: db.User,
+//                 },
+//                 {
+//                     model: db.Customer,
+//                 },
+//             ],
+//         })
+//         .then((data) => {
+//             console.log(data);
+//             console.log(dtstr);
+//             // const datestr = step.toString();
+//             // console.log(datestr);
+//             // const dataInDay = {datestr: data};
+//             // emptyArray.push(dataInDay);
+//             emptyArray.push(data);
+//         })
+
+//     }
+
+//     console.log(emptyArray);
+
+//     res.send(emptyArray);
+
+
+
+//     // const from_date = new Date(year, month - 1, 1);
+//     // const to_date = new Date(year, month , 0);
+//     // console.log(from_date);
+//     // console.log(to_date);
+//     // Bookingreservation.findAll({
+//     //     order: [
+//     //         ["bookingid", order]
+//     //     ],
+//     //     where: [{
+//     //         // datetime: {
+//     //         //     [Op.between]: [from_date, to_date],
+//     //         // },
+//     //         fromdate: {
+//     //             [Op.gte]: new Date(from_date),
+//     //         },
+//     //         todate: {
+//     //             [Op.lte]: new Date(to_date),
+//     //         },
+//     //     }],
+//     //     include: [
+//     //         {
+//     //             model: db.Event,
+//     //         },
+//     //         {
+//     //             model: db.Status,
+//     //         },
+//     //         {
+//     //             model: db.Lobby,
+//     //         },
+//     //         {
+//     //             model: db.Menu,
+//     //         },
+//     //         {
+//     //             model: db.User,
+//     //         },
+//     //         {
+//     //             model: db.Customer,
+//     //         },
+//     //     ],
+//     // })
+//     // .then((data) => {
+//     //     // for (let step = 0; step < data.len; step++) {
+//     //     //     // Runs 5 times, with values of step 0 through 4.
+//     //     //     console.log('Walking east one step');
+//     //     //   }
+//     //     // console.log(data);
+//     //     // console.log("@@@@@@@@@@@@@@@@@@@@@@@@");
+//     //     for (let step = 0; step < data.length; step++) {
+//     //         // Runs 5 times, with values of step 0 through 4.
+//     //         console.log('Walking east one step');
+//     //         console.log(data[step]);
+//     //         console.log("@@@@@@@@@@@@@@@@@@@@@@@@");
+            
+//     //     }
+//     //     res.send(data);
+//     // })
+//     // .catch((err) => {
+//     //     res.status(500).send({
+//     //         message: err.message || "Some error occurred while retrieving demand_status.",
+//     //     });
+//     //     console.log(err);
+//     // });
+// }
 
 exports.cancelBooking = (req, res) => {
     const id = parseInt(req.params.id, 10);

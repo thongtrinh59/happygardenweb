@@ -16,3 +16,30 @@ exports.parseTime = function (timestring) {
     return new_fromdate.toISOString();
 }
 
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
+exports.getDates = function (startDate, stopDate) {
+    let dateArray = [];
+    // console.log(dateArray.length);
+    let currentDate = startDate;
+    while (currentDate <= stopDate) {
+
+        dateArray.push(new Date (currentDate));
+        currentDate = currentDate.addDays(1);
+    }
+    // console.log(typeof(dateArray));
+    return dateArray;
+}
+
+// function getDaysInMonth(year, month) {
+//     return new Date(year, month, 0).getDate();
+//   }
+
+exports.getDaysInMonth = function (year, month) {
+    return new Date(year, month, 0).getDate();
+}
+
