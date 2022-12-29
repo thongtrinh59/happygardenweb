@@ -280,26 +280,26 @@ exports.getBookingByDate = (req, res) => {
                 [Op.lte]: new Date(stopDate),
             },
         }],
-        // include: [
-        //     {
-        //         model: db.Event,
-        //     },
-        //     {
-        //         model: db.Status,
-        //     },
-        //     {
-        //         model: db.Lobby,
-        //     },
-        //     {
-        //         model: db.Menu,
-        //     },
-        //     {
-        //         model: db.User,
-        //     },
-        //     {
-        //         model: db.Customer,
-        //     },
-        // ],
+        include: [
+            {
+                model: db.Event,
+            },
+            {
+                model: db.Status,
+            },
+            {
+                model: db.Lobby,
+            },
+            {
+                model: db.Menu,
+            },
+            {
+                model: db.User,
+            },
+            {
+                model: db.Customer,
+            },
+        ],
     })
     .then((data) => {
         // newArr = emptyArray.concat(data);
