@@ -25,4 +25,4 @@ INSERT INTO menu (menuname, price, "createdAt", "updatedAt") VALUES('vàng', '50
 INSERT INTO menu (menuname, price, "createdAt", "updatedAt") VALUES('kim cương', '5500000', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 --user--
-INSERT INTO users (username, phonenumber, email, password,  "createdAt", "updatedAt") VALUES('đồng', '3990000', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO users (username, phonenumber, email, password,  "createdAt", "updatedAt") VALUES('thong', '012345345', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
