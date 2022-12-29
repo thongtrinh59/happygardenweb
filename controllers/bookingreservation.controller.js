@@ -280,7 +280,7 @@ exports.getBookingByDate = (req, res) => {
                 [Op.lte]: new Date(stopDate),
             },
             statusid: {
-                [Op.eq]: 1
+                [Op.in]: [1,2]
             }
         }],
         include: [
