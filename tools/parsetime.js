@@ -16,6 +16,17 @@ exports.parseTime = function (timestring) {
     return new_fromdate.toISOString();
 }
 
+exports.parseZero = function (number) {
+    var numberstr = "";
+    if (number < 10) {
+        numberstr = "0" + number
+    } else {
+        numberstr = number
+    }
+    return numberstr
+}
+
+
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf());
     date.setDate(date.getDate() + days);

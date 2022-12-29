@@ -250,11 +250,22 @@ exports.getBookingByDate = (req, res) => {
     const order = req.query.order;
     const numberOfDays = pt.getDaysInMonth(year, month);
     console.log(numberOfDays);
-    const startDate = new Date(year + "-" + month + "-" + "01" 
+
+
+    const startDate = new Date(String(year) + "-" + pt.parseZero(month) + "-" + "01" 
                         + "T" + "00" + ":" + "00" + ":" + "00" + "Z");
 
-    const stopDate = new Date(year + "-" + month + "-" +  numberOfDays
+    const stopDate = new Date(String(year) + "-" + pt.parseZero(month) + "-" + String(numberOfDays)
                         + "T" + "23" + ":" + "59" + ":" + "59" + "Z");
+
+
+    console.log("###################");
+    console.log(year);
+    console.log(month);
+    console.log(startDate);
+    console.log(stopDate);
+    console.log("###################");
+
 
     const dateArr = pt.getDates(startDate, stopDate);
     console.log(dateArr);
@@ -279,9 +290,6 @@ exports.getBookingByDate = (req, res) => {
             todate: {
                 [Op.lte]: new Date(stopDate),
             },
-            statusid: {
-                [Op.in]: [1,2]
-            }
         }],
         include: [
             {
@@ -307,45 +315,40 @@ exports.getBookingByDate = (req, res) => {
     .then((data) => {
         // newArr = emptyArray.concat(data);
         // emptyArray.push(data);
-        // res.send(data);
+        res.send(data);
 
-        // for (let step = 0; step < data.length; step++) {
+
+        // let finalArray = [];
+
+
+        // for (let step = 1; step <= numberOfDays; step++) {
         //     // console.log(data[step].fromdate);
         //     // console.log(data[step].todate);
+        //     const currentDateStr = new Date(year + "-" + month + "-" + step + "Z")
+        //     let tempArr = [];
+        //     for (let i = 0; i < data.length; i++) {
+        //         // console.log(step, i);
+        //         const dateOnlyFromDate = (((data[i].fromdate).toISOString()).split("T"))[0];
+        //         const dateOnlyToDate = (((data[i].todate).toISOString()).split("T"))[0];
+        //         // console.log(dateOnlyFromDate);
+        //         // console.log(dateOnlyToDate);
 
-            
+        //         if ( (currentDateStr >= new Date(dateOnlyFromDate)) && (currentDateStr <= new Date(dateOnlyToDate))) {
+        //             console.log("#########");
+        //             tempArr.push(data[i]);
+        //         }
+        //     }
+        //     const newObj = {
+        //         date:step,
+        //         day: weekday[(new Date(currentDateStr)).getDay()],
+        //         day2: (new Date(currentDateStr)).getDay(),
+        //         booking: tempArr
+        //     };
+
+        //     finalArray.push(newObj);
         // }
-        let finalArray = [];
 
-
-        for (let step = 1; step <= numberOfDays; step++) {
-            // console.log(data[step].fromdate);
-            // console.log(data[step].todate);
-            const currentDateStr = new Date(year + "-" + month + "-" + step + "Z")
-            let tempArr = [];
-            for (let i = 0; i < data.length; i++) {
-                // console.log(step, i);
-                const dateOnlyFromDate = (((data[i].fromdate).toISOString()).split("T"))[0];
-                const dateOnlyToDate = (((data[i].todate).toISOString()).split("T"))[0];
-                // console.log(dateOnlyFromDate);
-                // console.log(dateOnlyToDate);
-
-                if ( (currentDateStr >= new Date(dateOnlyFromDate)) && (currentDateStr <= new Date(dateOnlyToDate))) {
-                    console.log("#########");
-                    tempArr.push(data[i]);
-                }
-            }
-            const newObj = {
-                date:step,
-                day: weekday[(new Date(currentDateStr)).getDay()],
-                day2: (new Date(currentDateStr)).getDay(),
-                booking: tempArr
-            };
-
-            finalArray.push(newObj);
-        }
-
-        res.send(finalArray);
+        // res.send(finalArray);
         
     })
     .catch((err) => {
