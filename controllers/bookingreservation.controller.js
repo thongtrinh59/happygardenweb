@@ -319,7 +319,7 @@ exports.getBookingByDate = (req, res) => {
         // res.send(data);
 
 
-        // let finalArray = [];
+        let finalArray = [];
 
 
         for (let step = 1; step <= numberOfDays; step++) {
