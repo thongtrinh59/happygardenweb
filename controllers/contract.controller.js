@@ -94,9 +94,10 @@ exports.createContract = (req, res) => {
 
         res.send("Create contract successfully");
 
-        Bookingreservation.update({
-            statusid: 2
-        })
+        Bookingreservation.update(
+            {statusid: 2},
+            {where: { bookingid: bookingid }},
+        )
     })
 }
 
@@ -107,7 +108,7 @@ exports.createContract = (req, res) => {
 exports.getAllContract = (req, res) => {
     Contract.findAll({
         order: [
-            ["updatedAt", "DESC"]
+            // ["updatedAt", "DESC"]
         ],
         include: [
             {

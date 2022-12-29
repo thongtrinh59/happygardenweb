@@ -27,7 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       //     foreignKey: "eventid"
       // });
 
-      Contract.belongsTo(models.Bookingreservation);
+      Contract.belongsTo(models.Bookingreservation, {
+          foreignKey: "bookingid"
+      });
 
       // Contract.belongsToMany(models.TempEmployee, {
       //   through: {model: "tempemployee_contract"},
