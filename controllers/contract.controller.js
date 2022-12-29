@@ -15,6 +15,7 @@ exports.validate = (method) => {
                 body('contractvalue').exists().isInt(),
                 body('deposit').exists().isInt(),
                 body('percentage').exists().isInt(),
+                body('descriptioncontract').optional()
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -34,46 +35,67 @@ exports.createContract = (req, res) => {
     const contractvalue = req.body.contractvalue;
     const deposit = req.body.deposit;
     const percentage = req.body.percentage;
+    const descriptioncontract = req.body.descriptioncontract;
 
     Contract.create({
         bookingid: bookingid,
         number: number,
         contractvalue: contractvalue,
         deposit: deposit,
-        percentage: percentage
+        percentage: percentage,
+        descriptioncontract:descriptioncontract
     });
 
     Bookingreservation.findByPk(bookingid, {
         include: [
-
+            {
+                model: db.Event,
+            },
+            {
+                model: db.Status,
+            },
+            {
+                model: db.Lobby,
+            },
+            {
+                model: db.Menu,
+            },
+            {
+                model: db.User,
+            },
+            {
+                model: db.Customer,
+            },
         ],
     })
     .then((data) => {
-        const sendback = {
-            userid : data.userid,
-            customerid : data.customerid,
-            lobbyid : data.lobbyid,
-            statusid : data.statusid,
-            eventid : data.eventid,
-            numberoftables : data.numberoftables,
-            numberofguests : data.numberofguests,
-            description : data.description,
-            fromdate : data.fromdate,
-            todate : data.todate,
-            menu : data.menu,
-            sound : data.sound,
-            decoration : data.decoration,
-            light : data.light,
-            mc : data.mc,
-            contentdisplay : data.contentdisplay,
-            singer : data.singer,
-            entertainment : data.entertainment,
-        }
+        // const sendback = {
+        //     userid : data.userid,
+        //     customerid : data.customerid,
+        //     lobbyid : data.lobbyid,
+        //     statusid : data.statusid,
+        //     eventid : data.eventid,
+        //     numberoftables : data.numberoftables,
+        //     numberofguests : data.numberofguests,
+        //     description : data.description,
+        //     fromdate : data.fromdate,
+        //     todate : data.todate,
+        //     menu : data.menu,
+        //     sound : data.sound,
+        //     decoration : data.decoration,
+        //     light : data.light,
+        //     mc : data.mc,
+        //     contentdisplay : data.contentdisplay,
+        //     singer : data.singer,
+        //     entertainment : data.entertainment,
+        // }
 
-        res.send(sendback);
+        // res.send(sendback);
+
+        res.send("Create contract successfully");
 
         Bookingreservation.update({
-            statusid: 1
+            statusid: 2
         })
     })
 }
@@ -88,7 +110,29 @@ exports.getAllContract = (req, res) => {
             ["updatedAt", "DESC"]
         ],
         include: [
-
+            {
+                model: db.Bookingreservation,
+                include: [
+                    {
+                        model: db.Event,
+                    },
+                    {
+                        model: db.Status,
+                    },
+                    {
+                        model: db.Lobby,
+                    },
+                    {
+                        model: db.Menu,
+                    },
+                    {
+                        model: db.User,
+                    },
+                    {
+                        model: db.Customer,
+                    },
+                ]
+            },
         ],
     })
     .then((data) => {
@@ -109,7 +153,29 @@ exports.getContractByID = (req, res) => {
     console.log(id);
     Contract.findByPk(id, {
         include: [
-
+            {
+                model: db.Bookingreservation,
+                include: [
+                    {
+                        model: db.Event,
+                    },
+                    {
+                        model: db.Status,
+                    },
+                    {
+                        model: db.Lobby,
+                    },
+                    {
+                        model: db.Menu,
+                    },
+                    {
+                        model: db.User,
+                    },
+                    {
+                        model: db.Customer,
+                    },
+                ]
+            },
         ],
     })
     .then((data) => {

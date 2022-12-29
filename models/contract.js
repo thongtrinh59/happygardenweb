@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     // lobbyid: DataTypes.INTEGER,
     percentage: DataTypes.INTEGER,
     //description here for something not
-    description: DataTypes.STRING,
+    descriptioncontract: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Contract',
