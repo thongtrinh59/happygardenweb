@@ -191,7 +191,24 @@ exports.getBookingByID = (req, res) => {
     console.log(id);
     Bookingreservation.findByPk(id, {
         include: [
-
+            {
+                model: db.Event,
+            },
+            {
+                model: db.Status,
+            },
+            {
+                model: db.Lobby,
+            },
+            {
+                model: db.Menu,
+            },
+            {
+                model: db.User,
+            },
+            {
+                model: db.Customer,
+            },
         ],
     })
     .then((data) => {
