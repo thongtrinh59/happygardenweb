@@ -11,7 +11,7 @@ module.exports = {
      */
     return queryInterface.addColumn(
       'bookingreservation',
-      'photobooth',
+      'gallerytable',
        Sequelize.STRING
      )
   },
@@ -25,7 +25,7 @@ module.exports = {
      */
     return queryInterface.removeColumn(
       'bookingreservation',
-      'photobooth',
+      'gallerytable',
        Sequelize.STRING
      )
   }
