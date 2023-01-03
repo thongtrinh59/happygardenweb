@@ -9,23 +9,32 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    return [
-      queryInterface.addColumn(
-        'bookingreservation',
-        'photobooth',
-        Sequelize.STRING
-      ),
-      queryInterface.addColumn(
-        'bookingreservation',
-        'teabreaktable',
-        Sequelize.STRING
-      ),
-      queryInterface.addColumn(
-        'bookingreservation',
-        'gallerytable',
-        Sequelize.STRING
-      ),
-    ] ;
+    // return queryInterface.addColumn(
+    //   'status',
+    //   'empty1', 'empty2',
+    //  Sequelize.STRING
+    // );
+    // await queryInterface.addColumn('status', 
+    // { 
+    //   empty1: {
+    //     type: Sequelize.STRING
+    //   },
+      
+    //   empty2: {
+    //     type: Sequelize.STRING
+    //   },
+    // });
+
+    return [ queryInterface.addColumn(
+      'bookingreservation',
+      'photobooth',
+       Sequelize.STRING
+     ),
+    queryInterface.addColumn(
+     'bookingreservation',
+     'teabreaktable',
+     Sequelize.STRING
+  )];
   },
 
   async down (queryInterface, Sequelize) {
@@ -35,22 +44,14 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    return [
+    return [ queryInterface.removeColumn(
+      'bookingreservation',
+      'photobooth'
+    ),
       queryInterface.removeColumn(
         'bookingreservation',
-        'photobooth',
-        Sequelize.STRING
+        'teabreaktable'
       ),
-      queryInterface.removeColumn(
-        'bookingreservation',
-        'teabreaktable',
-        Sequelize.STRING
-      ),
-      queryInterface.removeColumn(
-        'bookingreservation',
-        'gallerytable',
-        Sequelize.STRING
-      ),
-    ] ;
+    ];
   }
 };
