@@ -25,16 +25,16 @@ module.exports = {
     },
     production: {
         use_env_variable: process.env.DATABASE_URL,
-        username: process.env.DEV_USER,
-        password: process.env.DEV_PASS,
-        database: process.env.DEV_DATABASE,
-        host: process.env.DEV_HOST,
+        // username: process.env.DEV_USER,
+        // password: process.env.DEV_PASS,
+        // database: process.env.DEV_DATABASE,
+        // host: process.env.DEV_HOST,
         dialect: "postgres",
-        dialectOptions: {
-            ssl: {
-                require: true,
-                rejectUnauthorized: false // <<<<<<< YOU NEED THIS
-            }
-        }
+        // dialectOptions: {
+        //     ssl: {
+        //         require: true,
+        //         rejectUnauthorized: false // <<<<<<< YOU NEED THIS
+        //     }
+        // }
     },
 };
