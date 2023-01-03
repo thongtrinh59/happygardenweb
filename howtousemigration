@@ -1,0 +1,26 @@
+1, run 
+    - heroku config:set PGSSLMODE=require
+
+2, use config
+    - production: {
+        use_env_variable: process.env.DATABASE_URL,
+        // username: process.env.DEV_USER,
+        // password: process.env.DEV_PASS,
+        // database: process.env.DEV_DATABASE,
+        // host: process.env.DEV_HOST,
+        dialect: "postgres",
+        // dialectOptions: {
+        //     ssl: {
+        //         require: true,
+        //         rejectUnauthorized: false // <<<<<<< YOU NEED THIS
+        //     }
+        // }
+    },
+
+3, use command
+    - heroku run npx sequelize-cli db:migrate -a happy-garden-demo --url 'postgres://hfhpknimstkqhp:d3268186b2eb2135caa49bf148f87e0adb8d559d51a6413cf5856d37e47db3cc@ec2-34-194-73-236.compute-1.amazonaws.com:5432/d46hpp63krvjbq?ssl=true' --name 20230103080845-status
+
+    - heroku run npx sequelize-cli db:migrate:undo -a happy-garden-demo --url 'postgres://hfhpknimstkqhp:d3268186b2eb2135caa49bf148f87e0adb8d559d51a6413cf5856d37e47db3cc@ec2-34-194-73-236.compute-1.amazonaws.com:5432/d46hpp63krvjbq?ssl=true' --name 20230103080845-status
+
+4, if run local
+    - npx sequelize-cli db:migrate --url 'postgres://admin:123456@localhost:5432/hp' --name 20230103080845-status
