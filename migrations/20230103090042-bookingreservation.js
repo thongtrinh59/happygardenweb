@@ -15,16 +15,16 @@ module.exports = {
         'photobooth',
         Sequelize.STRING
       ),
-      queryInterface.addColumn(
-        'bookingreservation',
-        'teabreaktable',
-        Sequelize.STRING
-      ),
-      queryInterface.addColumn(
-        'bookingreservation',
-        'gallerytable',
-        Sequelize.STRING
-      ),
+      // queryInterface.addColumn(
+      //   'bookingreservation',
+      //   'teabreaktable',
+      //   Sequelize.STRING
+      // ),
+      // queryInterface.addColumn(
+      //   'bookingreservation',
+      //   'gallerytable',
+      //   Sequelize.STRING
+      // ),
     ] ;
   },
 
