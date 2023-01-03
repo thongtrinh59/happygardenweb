@@ -20,11 +20,11 @@ module.exports = {
         'teabreaktable',
         Sequelize.STRING
       ),
-      queryInterface.addColumn(
-        'bookingreservation',
-        'gallerytable',
-        Sequelize.STRING
-      ),
+      // queryInterface.addColumn(
+      //   'bookingreservation',
+      //   'gallerytable',
+      //   Sequelize.STRING
+      // ),
     ] ;
   },
 
