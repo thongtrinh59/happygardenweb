@@ -93,6 +93,10 @@ module.exports = {
         "type": Sequelize.STRING,
         "allowNull": true
       },
+      photobooth: {
+        "type": Sequelize.STRING,
+        "allowNull": true
+      },
     });
 
   },
