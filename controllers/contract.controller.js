@@ -92,8 +92,7 @@ exports.createContract = (req, res) => {
 
         // res.send(sendback);
 
-        // res.send("Create contract successfully");
-        res.send({ message: "Create contract successfully!" });
+        res.send("Create contract successfully");
 
         Bookingreservation.update(
             {statusid: 2},
@@ -185,7 +184,7 @@ exports.getContractByID = (req, res) => {
     })
     .catch((err) => {
         res.status(500).send({
-            message: "Error retrieving Customer with id=" + id,
+            message: "Error retrieving Contract with id=" + id,
         });
         console.log(err);
     });
