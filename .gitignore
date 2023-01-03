@@ -3,3 +3,4 @@ node_modules/
 bcry.js
 insert.sql
 package-lock.json
+package.json
