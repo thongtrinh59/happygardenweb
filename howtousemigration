@@ -17,6 +17,8 @@
         // }
     },
 
+2.5 remember to deploy code to server first then run command below
+
 3, use command
     - heroku run npx sequelize-cli db:migrate -a happy-garden-demo --url 'postgres://hfhpknimstkqhp:d3268186b2eb2135caa49bf148f87e0adb8d559d51a6413cf5856d37e47db3cc@ec2-34-194-73-236.compute-1.amazonaws.com:5432/d46hpp63krvjbq?ssl=true' --name 20230103080845-status
 
