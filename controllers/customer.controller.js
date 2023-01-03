@@ -13,7 +13,7 @@ exports.validate = (method) => {
                 body('phonenumber').exists(),
                 body('address').optional(),
                 body('companyname').optional(),
-                body('nationalid').exists(),
+                body('nationalid').optional(),
                 body('taxnumber').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
