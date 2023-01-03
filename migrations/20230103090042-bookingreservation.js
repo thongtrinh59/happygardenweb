@@ -15,16 +15,16 @@ module.exports = {
         'photobooth',
         Sequelize.STRING
       ),
-      // queryInterface.addColumn(
-      //   'bookingreservation',
-      //   'teabreaktable',
-      //   Sequelize.STRING
-      // ),
-      // queryInterface.addColumn(
-      //   'bookingreservation',
-      //   'gallerytable',
-      //   Sequelize.STRING
-      // ),
+      queryInterface.addColumn(
+        'bookingreservation',
+        'teabreaktable',
+        Sequelize.STRING
+      ),
+      queryInterface.addColumn(
+        'bookingreservation',
+        'gallerytable',
+        Sequelize.STRING
+      ),
     ] ;
   },
 
@@ -41,16 +41,16 @@ module.exports = {
         'photobooth',
         Sequelize.STRING
       ),
-      // queryInterface.removeColumn(
-      //   'bookingreservation',
-      //   'teabreaktable',
-      //   Sequelize.STRING
-      // ),
-      // queryInterface.removeColumn(
-      //   'bookingreservation',
-      //   'gallerytable',
-      //   Sequelize.STRING
-      // ),
+      queryInterface.removeColumn(
+        'bookingreservation',
+        'teabreaktable',
+        Sequelize.STRING
+      ),
+      queryInterface.removeColumn(
+        'bookingreservation',
+        'gallerytable',
+        Sequelize.STRING
+      ),
     ] ;
   }
 };
