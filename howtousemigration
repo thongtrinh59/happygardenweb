@@ -26,3 +26,5 @@
 
 4, if run local
     - npx sequelize-cli db:migrate --url 'postgres://admin:123456@localhost:5432/hp' --name 20230103090042-bookingreservation
+
+5, after 1 migration, delete and create new migration file
