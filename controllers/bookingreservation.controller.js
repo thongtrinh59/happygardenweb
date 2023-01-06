@@ -32,6 +32,9 @@ exports.validate = (method) => {
                 body('contentdisplay').optional(),
                 body('singer').exists(),
                 body('entertainment').optional(),
+                body('photobooth').optional(),
+                body('gallerytable').optional(),
+                body('teabreak').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -58,6 +61,9 @@ exports.validate = (method) => {
                 body('contentdisplay').optional(),
                 body('singer').exists(),
                 body('entertainment').optional(),
+                body('photobooth').optional(),
+                body('gallerytable').optional(),
+                body('teabreak').optional(),
                 // body('phone').optional().isInt(),
                 // body('status').optional().isIn(['enabled', 'disabled'])
             ]
@@ -90,6 +96,9 @@ exports.createBookingreservation = (req, res) => {
     const contentdisplay = req.body.contentdisplay;
     const singer = req.body.singer;
     const entertainment = req.body.entertainment;
+    const photobooth = req.body.photobooth;
+    const gallerytable = req.body.gallerytable;
+    const teabreak = req.body.teabreak;
 
     console.log("####################")
     console.log(fromdate);
@@ -123,7 +132,10 @@ exports.createBookingreservation = (req, res) => {
         mc: mc,
         contentdisplay: contentdisplay,
         singer: singer,
-        entertainment: entertainment
+        entertainment: entertainment,
+        photobooth: photobooth,
+        gallerytable: gallerytable,
+        teabreak: teabreak
     })
 
     .then(() => {
@@ -156,7 +168,10 @@ exports.updateBookingreservation = (req, res) => {
         mc: req.body.mc,
         contentdisplay: req.body.contentdisplay,
         singer: req.body.singer,
-        entertainment: req.body.entertainment
+        entertainment: req.body.entertainment,
+        photobooth: req.body.photobooth,
+        gallerytable: req.body.gallerytable,
+        teabreak: req.body.teabreak
     }, {
         where: { bookingid: id },
     })

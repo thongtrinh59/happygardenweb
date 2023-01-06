@@ -66,7 +66,10 @@ module.exports = (sequelize, DataTypes) => {
         mc: DataTypes.STRING,
         contentdisplay: DataTypes.STRING,
         singer: DataTypes.STRING,
-        entertainment: DataTypes.STRING
+        entertainment: DataTypes.STRING,
+        photobooth: DataTypes.STRING,
+        gallerytable: DataTypes.STRING,
+        teabreak: DataTypes.STRING,
     }, {
         sequelize,
         modelName: "Bookingreservation",
